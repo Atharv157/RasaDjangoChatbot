@@ -1,3 +1,3 @@
 # RasaDjangoChatbot
 Banking Chatbot powered by Rasa 
-Contributors @nitish599 and @akshay1502
+Contributors: [Akshay](https://github.com/akshay1502), [Nitish](https://github.com/nitish599)
