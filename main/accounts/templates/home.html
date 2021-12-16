@@ -12,50 +12,10 @@
         <a href="{% url 'logout' %}">Click this link to logout</a>
         </div>
         
-{% comment %} this is the code used from the rasa's youtube tutorial its working but the ui is dumb and also 
-no way mentioned to send initial payload which is quite necessary for us. {% endcomment %}
-        {% comment %} <head>
-          <link rel="stylesheet" href="https://npm-scalableminds.s3.eu-central-1.amazonaws.com/@scalableminds/chatroom@master/dist/Chatroom.css" />
-        </head>
-        <body>
-          <div class="chat-container"></div>
-        
-          <script src="https://npm-scalableminds.s3.eu-central-1.amazonaws.com/@scalableminds/chatroom@master/dist/Chatroom.js"/></script>
-          <script type="text/javascript">
-            var chatroom = new window.Chatroom({
-              host: "http://localhost:5005",
-              title: "Chat with Mike",
-              container: document.querySelector(".chat-container"),
-              welcomeMessage: "Hi, I am Mike. How may I help you?",
-              speechRecognition: "en-US",
-              
-            });
-            chatroom.openChat();
-          </script>
-        </body> {% endcomment %}
-
     </div>
-    <script>!(function () {
-      let e = document.createElement("script"),
-        t = document.head || document.getElementsByTagName("head")[0];
-      (e.src =
-        "https://cdn.jsdelivr.net/npm/rasa-webchat/lib/index.js"),
-        // Replace 1.x.x with the version that you want
-        (e.async = !0),
-        (e.onload = () => {
-          window.WebChat.default(
-            {
-              customData: { language: "en" },
-              socketUrl: "http://localhost:5005/",
-              // add other props here
-            },
-            null
-          );
-        }),
-        t.insertBefore(e, t.firstChild);
-    })();
-    </script>
+    <div id="chat-container"></div>
 
-
+    <div id="rasa-chat-widget" data-websocket-url="http://localhost:5005"></div>
+    <script src="https://unpkg.com/@rasahq/rasa-chat" type="application/javascript"></script>
     
 {% endblock  %}
