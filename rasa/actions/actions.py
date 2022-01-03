@@ -11,7 +11,7 @@ from typing import Any, Text, Dict, List
 from rasa_sdk.events import SlotSet
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
-from .mysqlconn import check_mail
+from .query import check_mail
 import random
 from .otp import send_otp
 

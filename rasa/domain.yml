@@ -37,12 +37,11 @@ responses:
   utter_ask_email:
   - text: "Please provide your email address"
   - text: "Can I have your email address"
-  - text: "chal email de"
 
   utter_ask_authotp:
-  - text: "Share the OTP which has been shared with you"
+  - text: "Share the OTP"
   - text: "Enter OTP"
-  - text: "OTP taak"
+ 
 
 
 
