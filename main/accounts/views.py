@@ -1,3 +1,5 @@
+#rasa run -m models --enable-api --cors "*" --debug
+#rasa run actions --cors "*" --debug
 from django.http.response import HttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
@@ -20,6 +22,7 @@ def login_attempt(request):
         user = authenticate(email = email, password = password)
         if user is not None:
             login(request,user)
+            
             return redirect('home')
             
         else:

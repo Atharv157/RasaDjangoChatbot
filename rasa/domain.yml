@@ -8,6 +8,8 @@ intents:
   - mood_great
   - mood_unhappy
   - bot_challenge
+  - authinform 
+  - account_balance
 
 responses:
   utter_greet:
@@ -28,6 +30,50 @@ responses:
 
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
+
+  utter_login_first:
+  - text: "For security reasons, I need to authenticate you again."
+
+  utter_ask_email:
+  - text: "Please provide your email address"
+  - text: "Can I have your email address"
+
+  utter_ask_authotp:
+  - text: "Share the OTP"
+  - text: "Enter OTP"
+ 
+
+
+
+entities:
+- email
+- authotp
+
+
+
+
+slots:
+  email:
+    type: text
+  verified_email:
+    type: text
+  authotp:
+    type: any
+  sendotp:
+    type: any
+
+
+
+actions:
+  - action_authinform
+# forms:
+#   authform:
+#     required_slots:
+#         - email
+#         - authotp
+
+
+store_entities_as_slots: true
 
 session_config:
   session_expiration_time: 60

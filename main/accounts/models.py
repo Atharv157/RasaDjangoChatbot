@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
+from django.db.models.fields import CharField
 # Create your models here.
 #################################################################################################################################
 class AccountManager(BaseUserManager):
@@ -87,6 +88,67 @@ class Customer(AbstractBaseUser):
     REQUIRED_FIELDS = ["pan","first_name","last_name","dob","gender"]
 
 
+
+
+########################################################################################################################
+
+class Branch(models.Model):
+    branch_id = models.AutoField(primary_key = True)
+    ifsc = models.CharField(max_length=50,unique = True)
+    contact = models.CharField(max_length=50)
+    location = models.CharField(max_length=100)
+    
+##########################################################################################################################
+
+class Account(models.Model):
+    acc_no = models.AutoField(primary_key = True)
+    balance = models.IntegerField()
+    acc_type = models.CharField(max_length=50)
+    open_date = models.DateField(auto_now=False, auto_now_add=False)
+    is_blocked = models.BooleanField(default = False)
+    customer_id = models.ForeignKey("accounts.Customer", verbose_name="fkcustomer", on_delete=models.CASCADE)
+    branch_id = models.ForeignKey("accounts.Branch", verbose_name="fkbranch", on_delete=models.CASCADE)
+
+################################################################################################################################
+
+class Complaint(models.Model):
+    complaint_txt = models.CharField(max_length=200)
+    complaint_id = models.AutoField(primary_key = True)
+    acc_no = models.ForeignKey("accounts.Account", verbose_name="fkacc", on_delete=models.CASCADE)
+    customer_id = models.ForeignKey("accounts.Customer", verbose_name="fkcust", on_delete=models.CASCADE)
+    complaint_date = models.DateField(auto_now_add=True)
+
+##################################################################################################################################
+
+class Card(models.Model):
+    card_no = models.AutoField(primary_key=True)
+    acc_no = models.ForeignKey("accounts.Account", verbose_name="fkacc", on_delete=models.CASCADE)
+    card_type = models.CharField(max_length=50)
+    credit_limit = models.IntegerField()
+    credit_used = models.IntegerField()
+    pin = models.IntegerField()
+    exp_date = models.DateField(auto_now=False, auto_now_add=False)
+    is_blocked = models.BooleanField(default=False)
+
+#####################################################################################################################################
+
+class Order(models.Model):
+    order_id = models.AutoField(primary_key=True)
+    customer_id = models.ForeignKey("accounts.Customer", verbose_name="fkcust", on_delete=models.CASCADE)
+    order_type = models.CharField(max_length=50)
+    order_time = models.DateField(auto_now=False, auto_now_add=False)
+    order_status = models.CharField(max_length=50)
+
+###############################################################################################################################
+
+class Transaction(models.Model):
+    transaction_id = models.AutoField(primary_key=True)
+    transaction_type = models.CharField(max_length=50)
+    amount = models.IntegerField()
+    transaction_date = models.DateField(auto_now=False, auto_now_add=False)
+    sender_acc = models.ForeignKey("accounts.Account", related_name = "senderacc",on_delete=models.CASCADE)
+    receiver_acc = models.ForeignKey("accounts.Account", related_name = "receiveracc",on_delete=models.CASCADE)
+    branch_id = models.ForeignKey("accounts.Branch", verbose_name="fkbranch", on_delete=models.CASCADE)
 
 
 ########################################################################################################################

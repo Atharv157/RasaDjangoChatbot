@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from accounts.models import Customer
+from accounts.models import *
 # Register your models here.
 
 
@@ -12,3 +12,11 @@ class AccountAdmin(UserAdmin):
     list_filter = ()
     fieldsets = ()
 admin.site.register(Customer,AccountAdmin)
+
+
+admin.site.register(Order)
+admin.site.register(Transaction)
+admin.site.register(Account)
+admin.site.register(Complaint)
+admin.site.register(Card)
+admin.site.register(Branch)
