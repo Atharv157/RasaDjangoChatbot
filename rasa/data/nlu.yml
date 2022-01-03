@@ -90,3 +90,33 @@ nlu:
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
+
+- intent: name_query
+  examples: |
+    - do u know me?
+    - what is my name?
+
+- intent: account_balance
+  examples: |
+    - what is my balance?
+    - account balance?
+    - show me my balance?
+    - give me my account balance?
+
+
+
+- intent: authinform
+  examples: |
+    - my email id is [atharv@gmail.com](email)
+    - [nitish999@yahoo.com](email)
+    - this is my email address [akshay1546@gmail.com](email)
+    - [4567](authotp)
+    - [9999](authotp)
+    - OTP which was send to me is [7864](authotp)
+    - OTP is [7856](authotp)
+
+  
+
+- regex: authotp
+  examples: |
+    - \d{4}

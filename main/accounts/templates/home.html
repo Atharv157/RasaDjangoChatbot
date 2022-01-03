@@ -59,6 +59,15 @@
     </head>
   
     <body>
+        <div class="global-container">
+            <h1>Chatbot</h1>
+            <h2>Hello there</h2>
+            <div></div>
+            <h3>{{request.user.first_name}} {{request.user.last_name}}</h3>
+    
+            <div class='container'>
+            <a href="{% url 'logout' %}">Click this link to logout</a>
+        </div>
       <div class="container">
         <!-- Modal for rendering the charts, declare this if you want to render charts, 
            else you remove the modal -->
