@@ -66,9 +66,7 @@ class ActionAuthInform(Action):
                     dispatcher.utter_message("Thanks for the info. I have successfully authenticated you. You may ask any query now.")
                     return [SlotSet("verified_email",email),SlotSet("authotp",None),SlotSet("sendotp",None)]
                 else:
-                    #ask for correct info
-                    # "Verification failed. Please start over by providing email again. Sorry for the inconvenience"
-                    dispatcher.utter_message(sendotp)
+                    dispatcher.utter_message("Verification failed. Please start over by providing email again. Sorry for the inconvenience")
                     return [SlotSet("email",None),SlotSet("authotp",None),SlotSet("sendotp",None)]
         
         return []
