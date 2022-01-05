@@ -11,7 +11,7 @@ from typing import Any, Text, Dict, List
 from rasa_sdk.events import SlotSet
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
-from .query import check_mail
+from .query import check_mail, get_balance
 import random
 from .otp import send_otp
 
@@ -71,4 +71,23 @@ class ActionAuthInform(Action):
         
         return []
 
+
+
+class ActionAccountBalance(Action):
+
+    def name(self) -> Text:
+        return "action_account_balance"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        verified_email = tracker.get_slot("verified_email")
+        if verified_email is None:
+            dispatcher.utter_message("For security reasons, I have to authenticate you, Can I please get your email address. Thank you")
+        else:
+            answer = "Your account balance is "+ str(get_balance(verified_email))
+            dispatcher.utter_message(answer)
+            
+        return []
 

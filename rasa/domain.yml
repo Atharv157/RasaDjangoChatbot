@@ -11,6 +11,25 @@ intents:
   - authinform 
   - account_balance
 
+entities:
+- email
+- authotp
+
+slots:
+  email:
+    type: text
+  verified_email:
+    type: text
+  authotp:
+    type: any
+  sendotp:
+    type: any
+
+
+actions:
+  - action_authinform
+  - action_account_balance
+
 responses:
   utter_greet:
   - text: "Hey! How are you?"
@@ -44,28 +63,6 @@ responses:
  
 
 
-
-entities:
-- email
-- authotp
-
-
-
-
-slots:
-  email:
-    type: text
-  verified_email:
-    type: text
-  authotp:
-    type: any
-  sendotp:
-    type: any
-
-
-
-actions:
-  - action_authinform
 # forms:
 #   authform:
 #     required_slots:
