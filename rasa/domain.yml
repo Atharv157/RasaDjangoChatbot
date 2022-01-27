@@ -10,10 +10,14 @@ intents:
   - bot_challenge
   - authinform 
   - account_balance
+  - pin_change
+  - pin_provided
+
 
 entities:
 - email
 - authotp
+- pin
 
 slots:
   email:
@@ -24,11 +28,17 @@ slots:
     type: any
   sendotp:
     type: any
+  pin:
+    type: text
+  
+
 
 
 actions:
   - action_authinform
   - action_account_balance
+  - action_pin_change
+  - action_unset_pin
 
 responses:
   utter_greet:
@@ -60,6 +70,10 @@ responses:
   utter_ask_authotp:
   - text: "Share the OTP"
   - text: "Enter OTP"
+
+  utter_ask_question:
+  - text: "What do you want me to do ?"
+  - text: "??"
  
 
 

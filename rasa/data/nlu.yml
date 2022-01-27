@@ -124,20 +124,62 @@ nlu:
     - how much money is in my bank accounts
     - can you tell me how much money i have i my bank accounts
 
+- intent: pin_change
+  examples: |
+    - i forgot my pin number for my credit union bank account, can you help
+    - i want to change my bank of america account pin number
+    - i want to change the pin number on my credit union account
+    - can you help me figure out my pin number for my visa account
+    - i need to update the pin number of my aaa visa
+    - i'd like to change the pin number on my visa account
+    - i need my pin number for my bank of america account and i can't remember it
+    - i can't remember my pin for my first national debit account
+    - i've forgotten my pin number for my citibank gold account
+    - i want to update my pin number on my bank of america account
+    - i don't want my current pin for my wells account anymore
+    - switch the pin on my chase account
+    - i want a new pin on my card of private client account
+    - i want the pin on my wells fargo account to be changed
+    - i need a new pin on my chase account
+    - so tell me the pin number
+    - i need to know the pin number to my card
+    - tell me the pin number to my card
+    - i need to know the pin number
+    - switch the pin on my visa account
+    - i would like my pin to be [6711](pin)
+    - set pin to [6665](pin)
+    - i want my new pin to be [1234](pin)
 
 
+- intent: pin_provided
+  examples: |
+    - [7832](pin)
+    - [5632](pin)
+    - [8784](pin)
+    - [4444](pin)
+    - [7005](pin)
+    - [1234](pin)
+
+- regex: pin
+  examples: |
+    - \d{4}
+    
 - intent: authinform
   examples: |
     - my email id is [atharv@gmail.com](email)
     - [nitish999@yahoo.com](email)
     - this is my email address [akshay1546@gmail.com](email)
-    - [4567](authotp)
-    - [9999](authotp)
-    - OTP which was send to me is [7864](authotp)
-    - OTP is [7856](authotp)
+    - [456756](authotp)
+    - [999945](authotp)
+    - OTP which was send to me is [786443](authotp)
+    - OTP is [785678](authotp)
+    - [447474](authotp)
+    - [283748](authotp)
+    - [012043](authotp)
+    - [987233](authotp)
 
-  
 
 - regex: authotp
   examples: |
-    - \d{4}
+    - \d{6}
+
