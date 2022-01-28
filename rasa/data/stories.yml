@@ -34,3 +34,31 @@ stories:
   steps:
   - intent: authinform
   - action: action_authinform
+
+- story: query_account_balance
+  steps:
+  - intent: account_balance
+  - action: action_account_balance
+
+- story: changing the pin, pin not provided
+  steps:
+  - intent: pin_change
+  - action: action_pin_change
+  - intent: pin_provided
+  - slot_was_set:
+      - pin: null
+  - action: action_pin_change
+
+- story: changing the pin, pin provided already
+  steps:
+  - intent: pin_provided
+  - slot_was_set:
+      - pin: null
+  - action: action_unset_pin
+
+- story: confused about pin
+  steps:
+  - intent: pin_provided
+  - slot_was_set:
+      - pin: null
+  - action: action_unset_pin

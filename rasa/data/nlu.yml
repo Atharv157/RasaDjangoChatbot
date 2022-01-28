@@ -102,21 +102,84 @@ nlu:
     - account balance?
     - show me my balance?
     - give me my account balance?
+    - can i know my account balance?
+    - do i have more than $100 in my account
+    - what's my balance
+    - how much is in myaccount
+    - how much money do i have in my account
+    - what is the balance in my account
+    - can i get beer within my deposit account
+    - is there enough in my savings account to get a new tv
+    - could be there be a good amount of money in my checking account to go on a vacation
+    - can i afford a new tv from my savings account
+    - will i have enough to get a new roku with my savings account
+    - do you think i have enough money in my chase account for a new pair of sneakers
+    - i hope i have enough money in my chase account to buy new clothes
+    - i am not sure if i have enough money in my chase account to buy a new dress
+    - i wonder if i have enough money in my chase account for a bike
+    - i keep trying to figure out if i have enough money in my account to purchase a new set of tires
+    - please tell me how much money i have in my bank accounts
+    - i need to know how much money i have in all of my bank accounts
+    - how much money is in all of my bank accounts
+    - how much money is in my bank accounts
+    - can you tell me how much money i have i my bank accounts
+
+- intent: pin_change
+  examples: |
+    - i forgot my pin number for my credit union bank account, can you help
+    - i want to change my bank of america account pin number
+    - i want to change the pin number on my credit union account
+    - can you help me figure out my pin number for my visa account
+    - i need to update the pin number of my aaa visa
+    - i'd like to change the pin number on my visa account
+    - i need my pin number for my bank of america account and i can't remember it
+    - i can't remember my pin for my first national debit account
+    - i've forgotten my pin number for my citibank gold account
+    - i want to update my pin number on my bank of america account
+    - i don't want my current pin for my wells account anymore
+    - switch the pin on my chase account
+    - i want a new pin on my card of private client account
+    - i want the pin on my wells fargo account to be changed
+    - i need a new pin on my chase account
+    - so tell me the pin number
+    - i need to know the pin number to my card
+    - tell me the pin number to my card
+    - i need to know the pin number
+    - switch the pin on my visa account
+    - i would like my pin to be [6711](pin)
+    - set pin to [6665](pin)
+    - i want my new pin to be [1234](pin)
 
 
+- intent: pin_provided
+  examples: |
+    - [7832](pin)
+    - [5632](pin)
+    - [8784](pin)
+    - [4444](pin)
+    - [7005](pin)
+    - [1234](pin)
 
+- regex: pin
+  examples: |
+    - \d{4}
+    
 - intent: authinform
   examples: |
     - my email id is [atharv@gmail.com](email)
     - [nitish999@yahoo.com](email)
     - this is my email address [akshay1546@gmail.com](email)
-    - [4567](authotp)
-    - [9999](authotp)
-    - OTP which was send to me is [7864](authotp)
-    - OTP is [7856](authotp)
+    - [456756](authotp)
+    - [999945](authotp)
+    - OTP which was send to me is [786443](authotp)
+    - OTP is [785678](authotp)
+    - [447474](authotp)
+    - [283748](authotp)
+    - [012043](authotp)
+    - [987233](authotp)
 
-  
 
 - regex: authotp
   examples: |
-    - \d{4}
+    - \d{6}
+
