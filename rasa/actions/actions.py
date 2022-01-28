@@ -9,10 +9,11 @@
 # This is a simple example for a custom action which utters "Hello World!"
 
 from typing import Any, Text, Dict, List
+#from importlib_metadata import email
 from rasa_sdk.events import SlotSet
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
-from .query import check_mail, get_balance, change_pin
+from .query import check_mail, get_balance, change_pin, change_phoneno
 import random
 from .otp import send_otp
 
@@ -71,6 +72,78 @@ class ActionAuthInform(Action):
                     return [SlotSet("email",None),SlotSet("authotp",None),SlotSet("sendotp",None)]
         
         return []
+
+# class EmailChange(Action):
+
+#     def name(self) -> Text:
+#         return "action_change_email"
+
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+#         # verified_email = tracker.get_slot("verified_email")
+#         # if verified_email is not None:
+#             email = tracker.get_slot('email')
+#             if email is None:
+#                 # email is provided
+#                 if change_email(verified_email,email):
+#                     dispatcher.utter_message("Email updated")
+#                     return [SlotSet("email",None)]
+#                 else:
+#                     dispatcher.utter_message("Problem occured while updating email. Please try again later. Sorry for the inconvinience")
+#             else:
+#                 # email not provided
+#                 dispatcher.utter_message('Enter the new email')
+#         # else:
+#         #     dispatcher.utter_message("For security reasons, I have to authenticate you, Can I please get your email address. Thank you")
+        
+
+#             return []
+
+# class UnsetEmail(Action):
+
+#     def name(self) -> Text:
+#         return "action_unset_email"
+
+#     def run(self, dispatcher: CollectingDispatcher,
+#             tracker: Tracker,
+#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+#         #dispatcher.utter_message(response="utter_ask_question")
+
+#         return [SlotSet('verified_email',None)] 
+
+
+
+class PhonenoChange(Action):
+
+    def name(self) -> Text:
+        return "action_change_phoneno"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        verifed_email = tracker.get_slot("verified_email")
+        if verifed_email is not None:
+            phoneno = tracker.get_slot('phoneno')
+            if phoneno is not None:
+                # pin is provided
+                if change_phoneno(verifed_email,phoneno):
+                    dispatcher.utter_message("Phone number updated")
+                    return [SlotSet("phoneno",None)]
+                else:
+                    dispatcher.utter_message("Problem occured while updating phone number. Please try again later. Sorry for the inconvinience")
+            else:
+                # pin not provided
+                dispatcher.utter_message('Enter the new phone number')
+        else:
+            dispatcher.utter_message("For security reasons, I have to authenticate you, Can I please get your email address. Thank you")
+        
+
+        return []
+
 
 
 

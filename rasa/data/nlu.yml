@@ -183,3 +183,43 @@ nlu:
   examples: |
     - \d{6}
 
+- intent: change_email
+  examples: |
+    - i want to change my email
+    - change email
+    - can i change my email
+    - change my email id
+    - update my email
+    - can i update my email
+
+- intent: change_phoneno
+  examples: |
+    - i want to change my phone number
+    - change phone number
+    - can i change my phone number
+    - change my phone number
+    - update my phone nnumber
+    - can i update my phone number
+    - update my phone number to [9876543210](phoneno)
+    - change my phone  number to [7856498756](phoneno)
+    - change my contact number to [45698756623](phoneno)
+
+- intent: phoneno_provided
+  examples: |
+    - update my phone number to [9876543210](phoneno)
+    - change my phone  number to [7856498756](phoneno)
+    - change my contact number to [45698756623](phoneno)
+    - [45698756623](phoneno)
+    - [7856498756](phoneno)
+    - [9876543210](phoneno)
+  
+
+  
+
+- regex: authotp
+  examples: |
+    - \d{4}
+
+- regex: phoneno
+  examples: |
+    - \d{10}
