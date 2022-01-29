@@ -35,7 +35,7 @@ slots:
   pin:
     type: text
   phoneno:
-    type: int
+    type: text
   
 
 
@@ -47,6 +47,7 @@ actions:
   - action_unset_pin
   - action_change_email
   - action_change_phoneno
+  - action_unset_phoneno
   - action_unset_email
 
 

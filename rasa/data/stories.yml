@@ -52,6 +52,13 @@ stories:
       - phoneno: null
   - action: action_change_phoneno
 
+- story: confused about phoneno
+  steps:
+  - intent: phoneno_provided
+  - slot_was_set:
+      - phoneno: null
+  - action: action_unset_phoneno
+
 
 - story: respond to authinform
   steps:

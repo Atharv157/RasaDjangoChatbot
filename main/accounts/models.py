@@ -5,7 +5,7 @@ from django.db.models.fields import CharField
 #################################################################################################################################
 class AccountManager(BaseUserManager):
     
-    def create_user(self,email,first_name,last_name,pan,gender,dob,password=None):
+    def create_user(self,email,first_name,last_name,pan,gender,dob,phoneno,password=None):
         if not email:
             raise ValueError("Users must have an email")
         if not first_name:
@@ -18,19 +18,22 @@ class AccountManager(BaseUserManager):
             raise ValueError("Users must have a gender")
         if not dob:
             raise ValueError("Users must have a dob")
+        if not phoneno:
+            raise ValueError("Users must have a phoneno")
         user = self.model(
             email = self.normalize_email(email),
             pan = pan,
             dob = dob,
             gender = gender,
             first_name = first_name,
-            last_name = last_name
+            last_name = last_name,
+            phoneno = phoneno
         )
         user.set_password(password)
         user.save(using=self._db)
         return user
     
-    def create_superuser(self,email,first_name,last_name,pan,gender,dob,password):
+    def create_superuser(self,email,first_name,last_name,pan,gender,dob,password,phoneno):
         user = self.create_user(
             email = self.normalize_email(email),
             pan = pan,
@@ -39,6 +42,7 @@ class AccountManager(BaseUserManager):
             first_name = first_name,
             last_name = last_name,
             password=password,
+            phoneno = phoneno
         
             
         )
@@ -72,6 +76,7 @@ class Customer(AbstractBaseUser):
     last_name = models.CharField(verbose_name="last_name" , max_length=50)
     dob = models.DateField(verbose_name = "dob", auto_now=False, auto_now_add=False)
     gender = models.CharField(verbose_name = "gender", max_length=50)
+    phoneno = models.CharField(verbose_name = "phoneno", max_length=10)
 
    
     objects = AccountManager()
@@ -85,7 +90,7 @@ class Customer(AbstractBaseUser):
     def has_module_perms(self, app_Label):
         return True
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ["pan","first_name","last_name","dob","gender"]
+    REQUIRED_FIELDS = ["pan","first_name","last_name","dob","gender","phoneno"]
 
 
 

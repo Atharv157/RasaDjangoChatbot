@@ -206,12 +206,12 @@ nlu:
 
 - intent: phoneno_provided
   examples: |
-    - update my phone number to [9876543210](phoneno)
-    - change my phone  number to [7856498756](phoneno)
-    - change my contact number to [45698756623](phoneno)
-    - [45698756623](phoneno)
+    - [4569875623](phoneno)
     - [7856498756](phoneno)
     - [9876543210](phoneno)
+    - [9876543544](phoneno)
+    - [9876778510](phoneno)
+    - [9874548410](phoneno)
   
 
   

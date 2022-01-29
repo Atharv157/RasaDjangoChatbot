@@ -51,7 +51,7 @@ def change_pin(email,pin):
 def change_phoneno(verified_email,phoneno):
     mydb = connect()
     mycursor = mydb.cursor()
-    query = "update accounts_customer set phoneno = {} where email = '{}';".format(phoneno,verified_email)
+    query = "update accounts_customer set phoneno = '{}' where email = '{}';".format(phoneno,verified_email)
     mycursor.execute(query)
     mydb.commit()
     row_affected = mycursor.rowcount
@@ -60,4 +60,4 @@ def change_phoneno(verified_email,phoneno):
         return True
     return False
 
-
+#print(change_phoneno('nitishshekhare@gmail.com','1234567890')) 
