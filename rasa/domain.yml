@@ -12,12 +12,16 @@ intents:
   - account_balance
   - pin_change
   - pin_provided
+  - change_email
+  - change_phoneno
+  - phoneno_provided
 
 
 entities:
 - email
 - authotp
 - pin
+- phoneno
 
 slots:
   email:
@@ -30,6 +34,8 @@ slots:
     type: any
   pin:
     type: text
+  phoneno:
+    type: text
   
 
 
@@ -39,6 +45,11 @@ actions:
   - action_account_balance
   - action_pin_change
   - action_unset_pin
+  - action_change_email
+  - action_change_phoneno
+  - action_unset_phoneno
+  - action_unset_email
+
 
 responses:
   utter_greet:

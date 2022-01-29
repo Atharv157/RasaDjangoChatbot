@@ -34,8 +34,29 @@ def change_pin(email,pin):
     if row_affected:
         return True
     return False
-    
 
-# print(change_pin("shingewaratharv@gmail.com",3466))
+# def change_email(verified_email,email):
+#     mydb = connect()
+#     mycursor = mydb.cursor()
+#     query = "update accounts_customer set email = '{}' where email = '{}';".format(email,verified_email)
+#     mycursor.execute(query)
+#     mydb.commit()
+#     row_affected = mycursor.rowcount
+#     mydb.close()
+#     if row_affected:
+#         return True
+#     return False
 
+def change_phoneno(verified_email,phoneno):
+    mydb = connect()
+    mycursor = mydb.cursor()
+    query = "update accounts_customer set phoneno = '{}' where email = '{}';".format(phoneno,verified_email)
+    mycursor.execute(query)
+    mydb.commit()
+    row_affected = mycursor.rowcount
+    mydb.close()
+    if row_affected:
+        return True
+    return False
 
+#print(change_phoneno('nitishshekhare@gmail.com','1234567890')) 
