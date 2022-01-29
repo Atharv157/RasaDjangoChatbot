@@ -1,6 +1,7 @@
 import psycopg2
 
 
+
 def connect():
     mydb = psycopg2.connect(
             database="d98j2ktql4vmti", 

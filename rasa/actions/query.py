@@ -35,7 +35,6 @@ def change_pin(email,pin):
         return True
     return False
 
-
 # def change_email(verified_email,email):
 #     mydb = connect()
 #     mycursor = mydb.cursor()
