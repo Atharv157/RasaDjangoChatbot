@@ -1,3 +1,4 @@
+from unittest import result
 from .mysqlconn import connect
  
 def check_mail(email):
@@ -26,7 +27,7 @@ def get_balance(email):
 def change_pin(email,pin):
     mydb = connect()
     mycursor = mydb.cursor()
-    query = "update accounts_card set pin = {} where acc_no_id = (select acc_no from accounts_account where customer_id_id =(select customer_id from accounts_customer where email = '{}'));".format(str(pin),email)
+    query = "update accounts_card set pin = {} where acc_no_id = (select acc_id from accounts_account where customer_id_id =(select customer_id from accounts_customer where email = '{}'));".format(str(pin),email)
     mycursor.execute(query)
     mydb.commit()
     row_affected = mycursor.rowcount
@@ -60,3 +61,33 @@ def change_phoneno(verified_email,phoneno):
     return False
 
 #print(change_phoneno('nitishshekhare@gmail.com','1234567890')) 
+
+def block_card(verified_email):
+    mydb = connect()
+    mycursor = mydb.cursor()
+    query = "update accounts_card set is_blocked=True where acc_no_id = (select acc_id from accounts_account where customer_id_id =(select customer_id from accounts_customer where email = '{}'));".format(verified_email)
+    mycursor.execute(query)
+    mydb.commit()
+    row_affected = mycursor.rowcount
+    query = "select card_no from accounts_card where is_blocked=True AND acc_no_id = (select acc_id from accounts_account where customer_id_id =(select customer_id from accounts_customer where email = '{}'));".format(verified_email)
+    mycursor.execute(query)
+    result = mycursor.fetchall()
+    mydb.close()
+    if row_affected:
+        return result[0][0]
+    return None
+
+def freeze_account(verified_email):
+    mydb = connect()
+    mycursor = mydb.cursor()
+    query = "update accounts_account set is_blocked=True where customer_id_id =(select customer_id from accounts_customer where email = '{}');".format(verified_email)
+    mycursor.execute(query)
+    mydb.commit()
+    row_affected = mycursor.rowcount
+    query = "select acc_no from accounts_account where is_blocked=True AND customer_id_id =(select customer_id from accounts_customer where email = '{}');".format(verified_email)
+    mycursor.execute(query)
+    result = mycursor.fetchall()
+    mydb.close()
+    if row_affected:
+        return result[0][0]
+    return None

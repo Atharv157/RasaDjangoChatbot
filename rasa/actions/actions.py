@@ -13,7 +13,7 @@ from typing import Any, Text, Dict, List
 from rasa_sdk.events import SlotSet
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
-from .query import check_mail, get_balance, change_pin, change_phoneno
+from .query import *
 import random
 from .otp import send_otp
 
@@ -220,3 +220,48 @@ class UnsetPhoneno(Action):
 #         #dispatcher.utter_message(response="utter_ask_question")
 
 #         return [SlotSet('verified_email',None)] 
+
+class BlockCard(Action):
+
+    def name(self) -> Text:
+        return "action_block_card"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        verified_email = tracker.get_slot("verified_email")
+        if verified_email is None:
+            dispatcher.utter_message("For security reasons, I have to authenticate you, Can I please get your email address. Thank you")
+        else:
+            card_no = block_card(verified_email)
+            if card_no is None: 
+                dispatcher.utter_message("Problem occured while blocking your card. Please try again later or contact branch.")
+            else:
+                encrypt_card_no = "X"*12 + card_no[-1:-5:-1]
+                answer = "Your card {} has been blocked.".format(encrypt_card_no)
+                dispatcher.utter_message(answer)
+
+        return []
+
+class FreezeAccount(Action):
+
+    def name(self) -> Text:
+        return "action_freeze_account"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        verified_email = tracker.get_slot("verified_email")
+        if verified_email is None:
+            dispatcher.utter_message("For security reasons, I have to authenticate you, Can I please get your email address. Thank you")
+        else:
+            acc_no = freeze_account(verified_email)
+            if acc_no is None: 
+                dispatcher.utter_message("Problem occured while freezing your account. Please try again later or contact branch.")
+            else:
+                answer = "Your account {} has been freezed. To reactivate contact branch".format(acc_no)
+                dispatcher.utter_message(answer)
+
+        return []    
