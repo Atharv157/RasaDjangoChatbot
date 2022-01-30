@@ -108,7 +108,7 @@ class Branch(models.Model):
 ##########################################################################################################################
 
 class Account(models.Model):
-    id = models.AutoField(primary_key=True)
+    acc_id = models.AutoField(primary_key=True)
     acc_no = models.CharField(default = str(int(uuid.uuid4()))[0:12], max_length=12)
     balance = models.IntegerField()
     acc_type = models.CharField(max_length=50)

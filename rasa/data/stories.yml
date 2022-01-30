@@ -92,3 +92,39 @@ stories:
   - slot_was_set:
       - pin: null
   - action: action_unset_pin
+
+- story: block card
+  steps: 
+  - intent: block_card
+  - action: utter_ask_block_card
+  - checkpoint: block_card_confirmation
+
+- story: block card + confirm
+  steps:
+  - checkpoint: block_card_confirmation
+  - intent: affirm
+  - action: action_block_card
+
+- story: block card + deny
+  steps:
+  - checkpoint: block_card_confirmation
+  - intent: deny
+  - action: utter_request_cancelled
+
+- story: freeze account
+  steps: 
+  - intent: freeze_account 
+  - action: utter_ask_confirmation
+  - checkpoint: freeze_account_confirmation
+
+- story: freeze account + confirm
+  steps:
+  - checkpoint: freeze_account_confirmation
+  - intent: affirm
+  - action: action_freeze_account 
+
+- story: freeze account + deny
+  steps:
+  - checkpoint: freeze_account_confirmation
+  - intent: deny
+  - action: utter_request_cancelled 

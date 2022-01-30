@@ -29,16 +29,7 @@ nlu:
     - have a nice day
     - see you around
     - bye bye
-    - see you later
-
-- intent: affirm
-  examples: |
-    - yes
-    - y
-    - indeed
-    - of course
-    - that sounds good
-    - correct
+    - see you later 
 
 - intent: deny
   examples: |
@@ -212,9 +203,90 @@ nlu:
     - [9876543544](phoneno)
     - [9876778510](phoneno)
     - [9874548410](phoneno)
-  
 
-  
+- intent: block_card
+  examples: |
+    - block my card
+    - I want to block my card
+    - someone stole my card
+    - block my debit card
+    - block my credit card
+    - How can I block my card
+    - i need to tell you about my lost card
+    - i lost my card, what do i do next
+    - i have lost my card, what am i supposed to do
+    - where do i report that my card was lost
+    - who do i speak with about my card that was lost
+    - please help me report my lost card
+    - set up a report for a lost card
+    - can you report a lost card for me
+    - i lost my card and need to report it
+    - what is the process for reporting my card as lost
+    - someone used my chase card without my authorization
+    - can you tell me how to report a card lost
+    - please tell me how to go about reporting a lost card
+    - search steps for how to report a card lost
+    - i need to to know how to report a lost card
+    - my bank of america visa platinum was swiped from my belongings
+    - who do i call to report my card as lost
+    - what should i do if i need to report my card lost
+    - my capital one visa was taken without permission
+    - i need to report that someone ran off with my td bank card earlier
+    - what steps do i need to take to report a card lost
+    - i would like to report my american express card stolen
+    - how do i report that i lost my card
+    - how do i report that i actually lost my card
+    - how do i report that i lost the card
+    - how do i report my very lost card
+    - how do i report the card as lost
+    - lost report card, need new one
+    - my report card was stolen
+    - my report card was lost help!
+
+- intent: affirm
+  examples: |
+    - that's definitely true
+    - yup, that's true
+    - yes, that is true for sure
+    - i know that is true
+    - true, most definitely
+    - facts
+    - you are not wrong about that
+    - that makes sense as well
+    - you are correct
+    - agreed
+    - accepted
+    - confirmed
+    - approved
+    - i want you to know it's a true statement
+    - i know that the statement is true
+    - this is a true statement
+    - the statement is true
+    - i'm telling you this is a true statement
+    - that's a yes
+    - affirmitive
+    - Yes
+    - Ya
+    - y
+    - yeah
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+
+- intent: freeze_account
+  examples: |
+    - may you stop a paymet on my account
+    - how we stop my account
+    - can you place a stop on my account
+    - can we stop my bank account
+    - i need you to freeze all activity on my account
+    - i need my savings account placed under a block as soon as possible
+    - i need a block placed right away on my joint checking account
+    - i want a block placed on my checking account right away
+    - can you please freeze my account
+    - freeze account
+    - block account
 
 - regex: authotp
   examples: |
@@ -223,3 +295,4 @@ nlu:
 - regex: phoneno
   examples: |
     - \d{10}
+  
