@@ -128,3 +128,49 @@ stories:
   - checkpoint: freeze_account_confirmation
   - intent: deny
   - action: utter_request_cancelled 
+
+- story: deactivate transfer money form before completion
+  steps:
+  - active_loop: transfer_form
+  - intent: stop_transfer
+  - action: utter_transfer_cancel
+  - intent: affirm
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null 
+
+- story: set account number
+  steps:
+  - active_loop: transfer_form
+  - slot_was_set:
+    - receiver: 545659585448 
+
+- story: amount provided during transfer
+  steps:
+  - active_loop: transfer_form
+  - intent: amount_provided
+  - slot_was_set:
+    - amount: 5000
+
+
+# - story: interactive_story_1
+#   steps:
+#   - intent: transfer_money
+#   - action: transfer_form
+#   - active_loop: transfer_form
+#   - slot_was_set:
+#     - requested_slot: receiver
+#   - slot_was_set:
+#     - receiver: '123456789012'
+#   - slot_was_set:
+#     - receiver: '123456789012'
+#   - slot_was_set:
+#     - requested_slot: amount
+#   - slot_was_set:
+#     - amount: '5000'
+#   - slot_was_set:
+#     - amount: '5000'
+#   - slot_was_set:
+#     - requested_slot: null
+#   - active_loop: null
+

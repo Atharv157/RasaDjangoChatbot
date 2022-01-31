@@ -265,3 +265,17 @@ class FreezeAccount(Action):
                 dispatcher.utter_message(answer)
 
         return []    
+
+class ActionTransferMoney(Action):
+    def name(self) -> Text:
+        return "action_transfer_money"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        
+        amount = tracker.get_slot("amount")
+        recepient = tracker.get_slot("receiver")
+        if amount is not None and recepient is not None:
+            dispatcher.utter_message("Amount is {} and recepient account number{}".format(amount,recepient))
+        return []

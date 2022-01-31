@@ -2,15 +2,19 @@ digraph  {
 0 [class="start active", fillcolor=green, fontsize=12, label=START, style=filled];
 "-1" [class=end, fillcolor=red, fontsize=12, label=END, style=filled];
 1 [class=active, fontsize=12, label=action_session_start];
-2 [class=active, fontsize=12, label=action_authinform];
-4 [class="intent dashed active", label="  ?  ", shape=rect];
-5 [class="intent active", fillcolor=lightblue, label="shing@gmail.com", shape=rect, style=filled];
-6 [class="intent active", fillcolor=lightblue, label=1234, shape=rect, style=filled];
+2 [class=active, fontsize=12, label=transfer_form];
+8 [class=active, fontsize=12, label=action_unlikely_intent];
+9 [class="dashed active", fontsize=12, label=action_freeze_account];
+10 [class="intent active", fillcolor=lightblue, label="transfer money", shape=rect, style=filled];
+11 [class="intent active", fillcolor=lightblue, label=34, shape=rect, style=filled];
+12 [class="intent active", fillcolor=lightblue, label=yes, shape=rect, style=filled];
 0 -> "-1"  [class="", key=NONE, label=""];
 0 -> 1  [class=active, key=NONE, label=""];
-1 -> 5  [class=active, key=0];
-2 -> 4  [class=active, key=NONE, label=""];
-2 -> 6  [class=active, key=0];
-5 -> 2  [class=active, key=0];
-6 -> 2  [class=active, key=0];
+1 -> 10  [class=active, key=0];
+2 -> 11  [class=active, key=0];
+2 -> 12  [class=active, key=0];
+8 -> 9  [class=active, key=NONE, label=""];
+10 -> 2  [class=active, key=0];
+11 -> 2  [class=active, key=0];
+12 -> 8  [class=active, key=0];
 }
