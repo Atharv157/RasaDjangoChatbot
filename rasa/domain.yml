@@ -24,6 +24,8 @@ entities:
 - authotp
 - pin
 - phoneno
+- transfer_amount
+- recepient
 
 slots:
   email:
@@ -37,6 +39,10 @@ slots:
   pin:
     type: text
   phoneno:
+    type: text
+  transfer_amount:
+    type: text
+  recepient:
     type: text
   
 
@@ -98,11 +104,15 @@ responses:
   utter_request_cancelled:
   - text: "Okay."
 
-# forms:
-#   authform:
-#     required_slots:
-#         - email
-#         - authotp
+forms:
+  transfer_form:
+    required_slots:
+        transfer_amount:
+          - type: from_entity
+            entity: transfer_amount
+        recepient:
+          - type: from_entity
+            entity: recepient
 
 
 store_entities_as_slots: true

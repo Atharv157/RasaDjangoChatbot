@@ -170,9 +170,7 @@ nlu:
     - [987233](authotp)
 
 
-- regex: authotp
-  examples: |
-    - \d{6}
+
 
 - intent: change_email
   examples: |

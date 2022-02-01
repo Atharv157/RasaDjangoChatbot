@@ -12,26 +12,18 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
 
+- rule: Activate transfer form
+  steps:
+  - intent: transfer_funds
+  - action: transfer_form
+  - active_loop: transfer_form
 
-# rules:
-# - rule: Activate authform
-#   steps:
-#   - intent: account_balance
-#   - action: utter_login_first
-#   - action: authform
-#   - active_loop: authform
-
-# rules:
-# - rule: Submit authform
-#   condition:
-#   # Condition that form is active.
-#   - active_loop: authform
-#   steps:
-#   # Form is deactivated
-#   - action: authform
-#   - active_loop: null
-#   - slot_was_set:
-#     - requested_slot: null
-#   # The actions we want to run when the form is submitted.
-#   - action: action_authuser
-#   - action: utter_authenticated
+- rule: Submit transfer form
+  condition:
+  - active_loop: transfer_form
+  steps:
+  - action: transfer_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_transfer_funds
