@@ -40,7 +40,7 @@ stories:
   steps:
   - intent: change_phoneno
   - slot_was_set:
-      - phoneno: null
+      - phoneno: '9594364068'
   - action: action_change_phoneno
 
 - story: respond to change_phoneno, phoneno not provided
@@ -49,14 +49,14 @@ stories:
   - action: action_change_phoneno
   - intent: phoneno_provided
   - slot_was_set:
-      - phoneno: null
+      - phoneno: '9594364068'
   - action: action_change_phoneno
 
 - story: confused about phoneno
   steps:
   - intent: phoneno_provided
   - slot_was_set:
-      - phoneno: null
+      - phoneno: '9594364068'
   - action: action_unset_phoneno
 
 
@@ -72,22 +72,24 @@ stories:
 
 - story: changing the pin, pin not provided
   steps:
+  - active_loop: null
   - intent: pin_change
   - action: action_pin_change
   - intent: pin_provided
   - slot_was_set:
-      - pin: null
+      - pin: '5683'
   - action: action_pin_change
 
-- story: changing the pin, pin provided already
-  steps:
-  - intent: pin_provided
-  - slot_was_set:
-      - pin: null
-  - action: action_unset_pin
+# - story: changing the pin, pin provided already
+#   steps:
+#   - intent: pin_provided
+#   - slot_was_set:
+#       - pin: 7739
+#   - action: action_unset_pin
 
 - story: confused about pin
   steps:
+  - active_loop: null
   - intent: pin_provided
   - slot_was_set:
       - pin: null
@@ -143,14 +145,66 @@ stories:
   steps:
   - active_loop: transfer_form
   - slot_was_set:
-    - receiver: 545659585448 
+    - receiver: '545659585448' 
 
 - story: amount provided during transfer
   steps:
   - active_loop: transfer_form
   - intent: amount_provided
   - slot_was_set:
-    - amount: 5000
+    - amount: '58933'
+
+- story: transfer along with transfer otp
+  steps:
+  - active_loop: transfer_form
+  - slot_was_set:
+    - receiver: '545659585448' 
+  - intent: amount_provided
+  - slot_was_set:
+    - amount: '5232'
+  - active_loop: null
+  - intent: transfer_otp_provided
+  - slot_was_set:
+    - send_transfer_otp: '58438'
+  - slot_was_set:
+    - transfer_otp: '58438'
+  - action: action_transfer_money
+
+- story: amount provided during transfer
+  steps:
+  - active_loop: null
+  - intent: transfer_otp_provided
+  - slot_was_set:
+    - send_transfer_otp: '58438'
+  - slot_was_set:
+    - transfer_otp: '58438'
+  - action: action_transfer_money
+
+
+# - story: transfer money happy path
+#   steps:
+#   - intent: transfer_money
+#   - slot_was_set:
+#     - receiver: 123456789012
+#   - slot_was_set:
+#     - amount: 8378
+#   - action: action_transfer_money
+#   - intent: transfer_otp_provided
+#   - slot_was_set:
+#     - transfer_otp: 56773
+#   - action: action_transfer_money
+
+# - story: transfer authentication
+#   steps:
+#   - active_loop: transfer_form
+#   - intent: amount_provided
+#   - slot_was_set:
+#     - amount: 5000
+#   - active_loop: null
+#   - intent: transfer_otp_provided
+#   - slot_was_set:
+#     - transfer_otp: 67328
+#   - action: action_transfer_money
 
 
 # - story: interactive_story_1
@@ -174,3 +228,71 @@ stories:
 #     - requested_slot: null
 #   - active_loop: null
 
+
+- story: interactive_story_1
+  steps:
+  - intent: authinform
+    entities:
+    - email: nitishshekhare@gmail.com
+  - slot_was_set:
+    - email: nitishshekhare@gmail.com
+  - action: action_authinform
+  - slot_was_set:
+    - sendotp: '369956'
+  - intent: authinform
+    entities:
+    - authotp: '369956'
+  - slot_was_set:
+    - authotp: '369956'
+  - action: action_authinform
+  - slot_was_set:
+    - verified_email: nitishshekhare@gmail.com
+  - slot_was_set:
+    - authotp: null
+  - slot_was_set:
+    - sendotp: null
+  - intent: pin_change
+  - action: action_pin_change
+  - intent: pin_provided
+    entities:
+    - pin: '9658'
+  - slot_was_set:
+    - pin: '9658'
+  - action: action_pin_change
+  - slot_was_set:
+    - pin: null
+  - intent: transfer_money
+  - action: transfer_form
+  - active_loop: transfer_form
+  - slot_was_set:
+    - requested_slot: receiver
+  - slot_was_set:
+    - receiver: '129019614806'
+  - slot_was_set:
+    - receiver: '129019614806'
+  - slot_was_set:
+    - requested_slot: amount
+  - slot_was_set:
+    - amount: '2589'
+  - slot_was_set:
+    - amount: '2589'
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_transfer_money
+  - slot_was_set:
+    - send_transfer_otp: '91412'
+  - intent: transfer_otp_provided
+    entities:
+    - transfer_otp: '91412'
+  - slot_was_set:
+    - transfer_otp: '91412'
+  - action: action_transfer_money
+  - slot_was_set:
+    - amount: null
+  - slot_was_set:
+    - receiver: null
+  - slot_was_set:
+    - transfer_otp: null
+  - slot_was_set:
+    - send_transfer_otp: null

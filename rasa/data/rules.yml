@@ -12,7 +12,7 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
 
-# rule to activate the transfer money form
+# to activate the transfer money form
 - rule: Activate transfer form
   steps:
   - intent: transfer_money

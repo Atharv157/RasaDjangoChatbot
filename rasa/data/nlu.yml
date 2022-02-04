@@ -131,6 +131,7 @@ nlu:
     - i would like my pin to be [6711](pin)
     - set pin to [6665](pin)
     - i want my new pin to be [1234](pin)
+    - pin chnage
 - intent: pin_provided
   examples: |
     - [7832](pin)
@@ -139,6 +140,13 @@ nlu:
     - [4444](pin)
     - [7005](pin)
     - [1234](pin)
+    - [4596](pin)
+    - [5459](pin)
+    - [8454](pin)
+    - [4545](pin)
+    - [7845](pin)
+    - [1845](pin)
+    - [9658](pin)
 - intent: authinform
   examples: |
     - my email id is [atharv@gmail.com](email)
@@ -152,6 +160,10 @@ nlu:
     - [283748](authotp)
     - [012043](authotp)
     - [987233](authotp)
+    - [892389](authotp)
+    - [034043](authotp)
+    - [nitishshekhare@gmail.com](email)
+    - [369956](authotp)
 - intent: change_email
   examples: |
     - i want to change my email
@@ -280,11 +292,11 @@ nlu:
     - i want to send [1](amount) rupee to akshay
     - [123456789012](receiver)
     - [5000](amount)
-    - [123456789012](receiver)
     - [20](amount)
     - [123456789034](receiver)
     - [23](amount)
-    - [34](amount)
+    - [34](amount) [123456789034](receiver)
+    - [129019614806](receiver)
 - intent: stop_transfer
   examples: |
     - stop
@@ -295,12 +307,10 @@ nlu:
     - revoke this transfer
     - do not transfer
     - i have changed my mind to give my money
-
 - intent: amount_provided
   examples: |
     - amount is [673](amount)
     - [87878](amount)
-    - amount is [673](amount)
     - [89](amount)
     - [4000](amount)
     - [75000](amount)
@@ -309,6 +319,20 @@ nlu:
     - [8932](amount)
     - [4563](amount)
     - [32](amount)
+    - [2589](amount)
+- intent: transfer_otp_provided
+  examples: |
+    - [44744](transfer_otp)
+    - [28348](transfer_otp)
+    - [01043](transfer_otp)
+    - [97233](transfer_otp)
+    - [44797](transfer_otp)
+    - [28387](transfer_otp)
+    - [01087](transfer_otp)
+    - [73982](transfer_otp)
+    - [33457](transfer_otp)
+    - [95698](transfer_otp)
+    - [91412](transfer_otp)
 - regex: amount
   examples: |
     - \d{1,7}
@@ -324,3 +348,9 @@ nlu:
 - regex: receiver
   examples: |
     - \d{12}
+- regex: send_transfer_otp
+  examples: |
+    - \d{5}
+- regex: transfer_otp
+  examples: |
+    - \d{5}

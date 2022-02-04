@@ -10,12 +10,14 @@
 
 from typing import Any, Text, Dict, List
 #from importlib_metadata import email
-from rasa_sdk.events import SlotSet
+from rasa_sdk.events import SlotSet, UserUttered
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from .query import *
 import random
 from .otp import send_otp
+from rasa_sdk.forms import FormValidationAction
+from .mysqlconn import connect
 
 #
 #TEMPLATE FOR CLASS
@@ -31,7 +33,9 @@ from .otp import send_otp
 #         dispatcher.utter_message(text="Hello World!")
 #
 #         return []
- 
+
+
+
 
  
 class ActionAuthInform(Action):
@@ -43,8 +47,24 @@ class ActionAuthInform(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         verified_email = tracker.get_slot("verified_email")
+        amount = tracker.get_slot('amount')
+        receiver = tracker.get_slot('receiver')
+        email = tracker.get_slot('email')
+        # send_transfer_otp = tracker.get_slot('send_transfer_slot')
+        # transfer_otp = tracker.get_slot('transfer_otp')
         if verified_email is not None:
             dispatcher.utter_message("You are already verified.")
+        # elif amount is not None and receiver is not None and email is None:
+        #     dispatcher.utter_message("For security reasons, I have to authenticate you, Can I please get your email address. Thank you")
+        elif amount is not None and receiver is not None and email is not None:
+            tempotp = random.randint(10000, 99999)
+            if send_otp(tempotp,email):    
+                dispatcher.utter_message("Enter the transaction otp")
+                return [SlotSet("send_transfer_otp",tempotp)]
+            else:
+                dispatcher.utter_message("Internal error, please try again later")
+                return[SlotSet('amount',None), SlotSet('receiver',None),SlotSet('transfer_otp',None),SlotSet('send_transfer_otp',None)]
+
         else:
             email = tracker.get_slot('email')
             otp = tracker.get_slot('authotp')
@@ -102,15 +122,15 @@ class PinChange(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        verifed_email = tracker.get_slot("verified_email")
-        if verifed_email is not None:
+        verified_email = tracker.get_slot("verified_email")
+        if verified_email is not None:
             pin = tracker.get_slot('pin')
             if pin is not None:
                 # pin is provided
                 if len(pin) != 4 or pin.isdigit() == False: 
                     dispatcher.utter_message("Invalid pin (pin should be of 4-digits only)")
                     return [SlotSet('pin',None)]  
-                if change_pin(verifed_email,pin):
+                if change_pin(verified_email,pin):
                     dispatcher.utter_message("Pin updated")
                     return [SlotSet("pin",None)]
                 else:
@@ -275,7 +295,82 @@ class ActionTransferMoney(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         
         amount = tracker.get_slot("amount")
-        recepient = tracker.get_slot("receiver")
-        if amount is not None and recepient is not None:
-            dispatcher.utter_message("Amount is {} and recepient account number{}".format(amount,recepient))
+        receiver = tracker.get_slot("receiver")
+        transfer_otp = tracker.get_slot("transfer_otp")
+        verified_email = tracker.get_slot("verified_email")
+        send_transfer_otp = tracker.get_slot("send_transfer_otp")
+        email = tracker.get_slot("email")
+        if verified_email is None and email is None:
+            dispatcher.utter_message("For security reasons, I have to authenticate you, Can I please get your email address. Thank you")
+        elif amount is not None and receiver is not None and transfer_otp is None:
+            #firstly validating receiver
+            if(not check_account_number_exists(verified_email,receiver)):
+                dispatcher.utter_message("Failed to process the transaction. Invalid beneficiary account number. Please reintialize the process.")
+                [SlotSet('amount',None), SlotSet('receiver',None),SlotSet('transfer_otp',None),SlotSet('send_transfer_otp',None)]
+            # validating the amount
+            if(not check_balance_before_transfer(verified_email, amount)):
+                dispatcher.utter_message("Transfer amount exceeds the available account balance. Please reintialize the process.")
+                [SlotSet('amount',None), SlotSet('receiver',None),SlotSet('transfer_otp',None),SlotSet('send_transfer_otp',None)]
+            elif amount is not None and receiver is not None and transfer_otp is None:
+                tempotp = random.randint(10000, 99999)
+                if send_otp(tempotp,verified_email):    
+                    dispatcher.utter_message("Enter the transaction otp")
+                    return [SlotSet("send_transfer_otp",tempotp)]
+                else:
+                    dispatcher.utter_message("Internal error, please try again later")
+                    [SlotSet('amount',None), SlotSet('receiver',None),SlotSet('transfer_otp',None),SlotSet('send_transfer_otp',None)]
+        elif amount is not None and receiver is not None and transfer_otp is not None and send_transfer_otp is not None:
+            if str(send_transfer_otp)==str(transfer_otp):
+                if transfer(amount,receiver,verified_email=email):
+                    dispatcher.utter_message("Transaction Completed")
+                    if verified_email is None:
+                        return [SlotSet('amount',None), SlotSet('receiver',None),SlotSet('transfer_otp',None),SlotSet('send_transfer_otp',None),SlotSet('verified_email',email),SlotSet("email",None)]
+                    else:
+                        return [SlotSet('amount',None), SlotSet('receiver',None),SlotSet('transfer_otp',None),SlotSet('send_transfer_otp',None)]
+                else:
+                    dispatcher.utter_message("Transaction cancelled. Please try again later.")
+                    return [SlotSet('amount',None), SlotSet('receiver',None),SlotSet('transfer_otp',None),SlotSet('send_transfer_otp',None)]
+            else:
+                dispatcher.utter_message("Wrong OTP. Please try again")      
+                return [SlotSet('amount',None), SlotSet('receiver',None),SlotSet('transfer_otp',None),SlotSet('send_transfer_otp',None)]  
         return []
+
+
+
+
+
+class ValidateTransferForm(FormValidationAction):
+    def name(self) -> Text:
+        return "validate_transfer_form"
+    def validate_receiver(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]
+    ) -> List[Dict[Text, Any]]:
+
+        receiver = slot_value
+            # basic validation of digits and length
+        if(not receiver.isdigit() or len(receiver) != 12):
+            return {"receiver": None}
+    
+        return {"receiver": slot_value}
+
+    def validate_amount(self, 
+    slot_value: Any,
+    dispatcher: CollectingDispatcher,
+    tracker: Tracker,
+    domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        amountstr = slot_value
+        amount = int(amountstr)
+        #isAmount valid
+        if (not amount or not amountstr.isdigit() or amount<=0): 
+            return {"amount": None}
+        return {"amount": slot_value}
+
+
+
+        
+
+        

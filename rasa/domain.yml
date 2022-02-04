@@ -3,7 +3,12 @@ session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
+- amount_provided
+- pin_change
 - transfer_money
+- transfer_otp_provided
+- pin_provided
+- authinform
 - affirm
 - greet
 - goodbye
@@ -11,18 +16,13 @@ intents:
 - mood_great
 - mood_unhappy
 - bot_challenge
-- authinform
 - account_balance
-- pin_change
-- pin_provided
 - change_email
 - change_phoneno
 - phoneno_provided
 - block_card
 - freeze_account
 - stop_transfer
-- amount_provided
-
 entities:
 - amount
 - authotp
@@ -30,6 +30,7 @@ entities:
 - phoneno
 - pin
 - receiver
+- transfer_otp
 slots:
   email:
     type: text
@@ -55,6 +56,12 @@ slots:
   receiver:
     type: text
     influence_conversation: true
+  transfer_otp:
+    type: text
+    influence_conversation: true
+  send_transfer_otp:
+    type: text
+    influence_conversation: false
 responses:
   utter_greet:
   - text: Hey! How are you?
@@ -105,6 +112,7 @@ actions:
 - action_unset_email
 - action_unset_phoneno
 - action_unset_pin
+- validate_transfer_form
 forms:
   transfer_form:
     required_slots:
@@ -112,5 +120,3 @@ forms:
       - type: from_text
       amount:
       - type: from_text
-
-
