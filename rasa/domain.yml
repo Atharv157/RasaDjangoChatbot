@@ -1,122 +1,168 @@
-version: "2.0"
-
-intents:
-  - greet
-  - goodbye
-  - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
-  - authinform 
-  - account_balance
-  - pin_change
-  - pin_provided
-  - change_email
-  - change_phoneno
-  - phoneno_provided
-  - block_card
-  - affirm
-  - freeze_account
-
-
-entities:
-- email
-- authotp
-- pin
-- phoneno
-- transfer_amount
-- recepient
-
-slots:
-  email:
-    type: text
-  verified_email:
-    type: text
-  authotp:
-    type: any
-  sendotp:
-    type: any
-  pin:
-    type: text
-  phoneno:
-    type: text
-  transfer_amount:
-    type: text
-  recepient:
-    type: text
-  
-
-actions:
-  - action_authinform
-  - action_account_balance
-  - action_pin_change
-  - action_unset_pin
-  - action_change_email
-  - action_change_phoneno
-  - action_unset_phoneno
-  - action_unset_email
-  - action_block_card
-  - action_freeze_account
-
-
-responses:
-  utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
-
-  utter_goodbye:
-  - text: "Bye"
-
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
-
-  utter_login_first:
-  - text: "For security reasons, I need to authenticate you again."
-
-  utter_ask_email:
-  - text: "Please provide your email address"
-  - text: "Can I have your email address"
-
-  utter_ask_authotp:
-  - text: "Share the OTP"
-  - text: "Enter OTP"
-
-  utter_ask_question:
-  - text: "What do you want me to do ?"
-  - text: "??"
-  
-  utter_ask_confirmation:
-  - text: "Do you want to proceed ?"
-  - text: "Should I go ahead with this action ?"
-
-  utter_ask_block_card: 
-  - text: "Do you want to block your card ?"
-
-  utter_request_cancelled:
-  - text: "Okay."
-
-forms:
-  transfer_form:
-    required_slots:
-        transfer_amount:
-          - type: from_entity
-            entity: transfer_amount
-        recepient:
-          - type: from_entity
-            entity: recepient
-
-
-store_entities_as_slots: true
-
+version: '2.0'
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
+intents:
+- inform_currency
+- amount_provided
+- pin_change
+- transfer_money
+- transfer_otp_provided
+- pin_provided
+- authinform
+- affirm
+- greet
+- goodbye
+- deny
+- mood_great
+- mood_unhappy
+- bot_challenge
+- account_balance
+- change_email
+- change_phoneno
+- phoneno_provided
+- block_card
+- freeze_account
+- stop_transfer
+entities:
+- amount
+- authotp
+- email
+- input_currency
+- output_currency
+- phoneno
+- pin
+- receiver
+- transfer_otp
+slots:
+  email:
+    type: text
+    influence_conversation: true
+  verified_email:
+    type: text
+    influence_conversation: true
+  authotp:
+    type: any
+    influence_conversation: false
+  sendotp:
+    type: any
+    influence_conversation: false
+  pin:
+    type: text
+    influence_conversation: true
+  phoneno:
+    type: text
+    influence_conversation: true
+  amount:
+    type: text
+    influence_conversation: true
+  receiver:
+    type: text
+    influence_conversation: true
+  transfer_otp:
+    type: text
+    influence_conversation: true
+  send_transfer_otp:
+    type: text
+    influence_conversation: false
+  input_currency:
+    type: text
+    influence_conversation: false
+  output_currency:
+    type: text
+    influence_conversation: false
+responses:
+  utter_greet:
+  - text: Hey! How are you?
+  utter_cheer_up:
+  - text: 'Here is something to cheer you up:'
+    image: https://i.imgur.com/nGF1K8f.jpg
+  utter_did_that_help:
+  - text: Did that help you?
+  utter_happy:
+  - text: Great, carry on!
+  utter_goodbye:
+  - text: Bye
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_login_first:
+  - text: For security reasons, I need to authenticate you again.
+  utter_ask_email:
+  - text: Please provide your email address
+  - text: Can I have your email address
+  utter_ask_authotp:
+  - text: Share the OTP
+  - text: Enter OTP
+  utter_ask_question:
+  - text: What do you want me to do ?
+  - text: ??
+  utter_ask_confirmation:
+  - text: Do you want to proceed ?
+  - text: Should I go ahead with this action ?
+  utter_ask_block_card:
+  - text: Do you want to block your card ?
+  utter_request_cancelled:
+  - text: Okay.
+  utter_transfer_cancel:
+  - text: Do you want to cancel transfer ?
+  utter_ask_amount:
+  - text: Please enter the amount to be transferred.
+  utter_ask_receiver:
+  - text: Please enter the 12 digit beneficiary account number
+  utter_ask_currency:
+  - text: Select a currency.
+    buttons:
+    - title: INR (₹ India)
+      payload: /inform_currency{{"input_currency":"INR"}}
+    - title: USD ($ USA)
+      payload: /inform_currency{{"input_currency":"USD"}}
+    - title: GBP (£ Great Britain)
+      payload: /inform_currency{{"input_currency":"GBP"}} 
+    - title: JPY (¥ Japan)
+      payload: /inform_currency{{"input_currency":"JPY"}}
+    - title: CHF (Fr France)
+      payload: /inform_currency{{"input_currency":"CHF"}}
+    - title: CAD (C$ Canada)
+      payload: /inform_currency{{"input_currency":"CAD"}}
+    - title: EUR (€ Europe)
+      payload: /inform_currency{{"input_currency":"EUR"}}
+  utter_ask_convert_to_currency:
+  - text: Select a currency in which you wish to convert.
+    buttons:
+    - title: INR (₹ India)
+      payload: /inform_currency{{"output_currency":"INR"}}
+    - title: USD ($ USA)
+      payload: /inform_currency{{"output_currency":"USD"}}
+    - title: GBP (£ Great Britain)
+      payload: /inform_currency{{"output_currency":"GBP"}}
+    - title: JPY (¥ Japan)
+      payload: /inform_currency{{"output_currency":"JPY"}}
+    - title: CHF (Fr France)
+      payload: /inform_currency{{"output_currency":"CHF"}}
+    - title: CAD (C$ Canada)
+      payload: /inform_currency{{"output_currency":"CAD"}}
+    - title: EUR (€ Europe)
+      payload: /inform_currency{{"output_currency":"EUR"}}
+actions:
+- action_account_balance
+- action_authinform
+- action_block_card
+- action_change_email
+- action_change_phoneno
+- action_exchange_rate
+- action_freeze_account
+- action_pin_change
+- action_transfer_money
+- action_unset_email
+- action_unset_phoneno
+- action_unset_pin
+- utter_ask_convert_to_currency
+- utter_ask_currency
+- validate_transfer_form
+forms:
+  transfer_form:
+    required_slots:
+      receiver:
+      - type: from_text
+      amount:
+      - type: from_text

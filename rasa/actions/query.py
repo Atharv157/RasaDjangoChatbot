@@ -91,3 +91,56 @@ def freeze_account(verified_email):
     if row_affected:
         return result[0][0]
     return None
+
+def check_account_number_exists(verified_email,receiver):
+    # verified_email="akshayshinde7289@gmail.com"
+    mydb = connect()
+    mycursor = mydb.cursor()
+    query = "select acc_id from accounts_account where acc_no = '{}';".format(receiver)
+    mycursor.execute(query)
+    result = mycursor.fetchall()
+    if not len(result):
+        return False
+    receiver_acc_id = result
+    print("receiver is {}".format(receiver_acc_id))
+    query = "select acc_id from accounts_account where customer_id_id =(select customer_id from accounts_customer where email = '{}');".format(verified_email)
+    mycursor.execute(query)
+    result = mycursor.fetchall()
+    sender_acc_id = result
+    # print("sender is {}".format(sender_acc_id))
+    mydb.close()
+    if receiver_acc_id == sender_acc_id:
+        return False
+
+    return True
+
+
+def check_balance_before_transfer(verified_email, amount_to_be_transfer):
+    # verified_email = "akshayshinde7289@gmail.com"
+    mydb = connect()
+    mycursor = mydb.cursor()
+    query = "select balance from accounts_account where customer_id_id=(select customer_id from accounts_customer where email = '{}');".format(verified_email)
+    mycursor.execute(query)
+    result = mycursor.fetchall()
+    sender_balance = int(result[0][0])
+    mydb.close()
+    if int(amount_to_be_transfer) > sender_balance:
+        return False
+    return True
+
+
+def transfer(amount,receiver,verified_email):
+    mydb = connect()
+    mycursor = mydb.cursor()
+    query = "update accounts_account set balance = balance + {} where acc_no = '{}';".format(amount,receiver)
+    mycursor.execute(query)
+    row_affected_while_receiving = mycursor.rowcount
+    query = "update accounts_account set balance = balance - {} where customer_id_id =(select customer_id from accounts_customer where email = '{}');".format(amount,verified_email)
+    mycursor.execute(query)
+    row_affected_while_sending = mycursor.rowcount
+    if row_affected_while_receiving and row_affected_while_sending:
+        mydb.commit()
+        mydb.close()
+        return True
+    mydb.close()
+    return False

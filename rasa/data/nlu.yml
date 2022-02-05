@@ -1,5 +1,4 @@
 version: "2.0"
-
 nlu:
 - intent: greet
   examples: |
@@ -16,7 +15,6 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
-
 - intent: goodbye
   examples: |
     - good afternoon
@@ -29,8 +27,7 @@ nlu:
     - have a nice day
     - see you around
     - bye bye
-    - see you later 
-
+    - see you later
 - intent: deny
   examples: |
     - no
@@ -40,7 +37,6 @@ nlu:
     - don't like that
     - no way
     - not really
-
 - intent: mood_great
   examples: |
     - perfect
@@ -57,7 +53,6 @@ nlu:
     - so so perfect
     - so good
     - so perfect
-
 - intent: mood_unhappy
   examples: |
     - my day was horrible
@@ -74,19 +69,16 @@ nlu:
     - extremly sad
     - so saad
     - so sad
-
 - intent: bot_challenge
   examples: |
     - are you a bot?
     - are you a human?
     - am I talking to a bot?
     - am I talking to a human?
-
 - intent: name_query
   examples: |
     - do u know me?
     - what is my name?
-
 - intent: account_balance
   examples: |
     - what is my balance?
@@ -114,7 +106,6 @@ nlu:
     - how much money is in all of my bank accounts
     - how much money is in my bank accounts
     - can you tell me how much money i have i my bank accounts
-
 - intent: pin_change
   examples: |
     - i forgot my pin number for my credit union bank account, can you help
@@ -140,8 +131,7 @@ nlu:
     - i would like my pin to be [6711](pin)
     - set pin to [6665](pin)
     - i want my new pin to be [1234](pin)
-
-
+    - pin chnage
 - intent: pin_provided
   examples: |
     - [7832](pin)
@@ -150,11 +140,13 @@ nlu:
     - [4444](pin)
     - [7005](pin)
     - [1234](pin)
-
-- regex: pin
-  examples: |
-    - \d{4}
-    
+    - [4596](pin)
+    - [5459](pin)
+    - [8454](pin)
+    - [4545](pin)
+    - [7845](pin)
+    - [1845](pin)
+    - [9658](pin)
 - intent: authinform
   examples: |
     - my email id is [atharv@gmail.com](email)
@@ -168,10 +160,10 @@ nlu:
     - [283748](authotp)
     - [012043](authotp)
     - [987233](authotp)
-
-
-
-
+    - [892389](authotp)
+    - [034043](authotp)
+    - [nitishshekhare@gmail.com](email)
+    - [369956](authotp)
 - intent: change_email
   examples: |
     - i want to change my email
@@ -180,7 +172,6 @@ nlu:
     - change my email id
     - update my email
     - can i update my email
-
 - intent: change_phoneno
   examples: |
     - i want to change my phone number
@@ -192,7 +183,6 @@ nlu:
     - update my phone number to [9876543210](phoneno)
     - change my phone  number to [7856498756](phoneno)
     - change my contact number to [45698756623](phoneno)
-
 - intent: phoneno_provided
   examples: |
     - [4569875623](phoneno)
@@ -201,7 +191,6 @@ nlu:
     - [9876543544](phoneno)
     - [9876778510](phoneno)
     - [9874548410](phoneno)
-
 - intent: block_card
   examples: |
     - block my card
@@ -240,7 +229,6 @@ nlu:
     - lost report card, need new one
     - my report card was stolen
     - my report card was lost help!
-
 - intent: affirm
   examples: |
     - that's definitely true
@@ -271,7 +259,7 @@ nlu:
     - of course
     - that sounds good
     - correct
-
+    - yes
 - intent: freeze_account
   examples: |
     - may you stop a paymet on my account
@@ -285,12 +273,97 @@ nlu:
     - can you please freeze my account
     - freeze account
     - block account
-
+- intent: transfer_money
+  examples: |
+    - send [1000](amount) to [123456789012](receiver)
+    - transfer [2000](amount) to [098765432123](receiver)
+    - send [40000](amount) rupees to [123456789012](receiver)
+    - transfer [34567](amount) rupees to [098765432123](receiver)
+    - transfer money
+    - send money
+    - transfer
+    - transfer money to [23435465745](receiver)
+    - send money to [346475648567](receiver)
+    - send money to akshay
+    - transfer money to nitish
+    - transfer [10000](amount) to nitish
+    - i want to send [100](amount) to [123456789876](receiver)
+    - i want to send [10](amount) to atharv
+    - i want to send [1](amount) rupee to akshay
+    - [123456789012](receiver)
+    - [5000](amount)
+    - [20](amount)
+    - [123456789034](receiver)
+    - [23](amount)
+    - [34](amount) [123456789034](receiver)
+    - [129019614806](receiver)
+- intent: stop_transfer
+  examples: |
+    - stop
+    - stop transfer
+    - please stop
+    - please stop this transfer
+    - can you stop this transfer
+    - revoke this transfer
+    - do not transfer
+    - i have changed my mind to give my money
+- intent: amount_provided
+  examples: |
+    - amount is [673](amount)
+    - [87878](amount)
+    - [89](amount)
+    - [4000](amount)
+    - [75000](amount)
+    - [5](amount)
+    - [7899](amount)
+    - [8932](amount)
+    - [4563](amount)
+    - [32](amount)
+    - [2589](amount)
+- intent: transfer_otp_provided
+  examples: |
+    - [44744](transfer_otp)
+    - [28348](transfer_otp)
+    - [01043](transfer_otp)
+    - [97233](transfer_otp)
+    - [44797](transfer_otp)
+    - [28387](transfer_otp)
+    - [01087](transfer_otp)
+    - [73982](transfer_otp)
+    - [33457](transfer_otp)
+    - [95698](transfer_otp)
+    - [91412](transfer_otp)
+- intent: inform_currency
+  examples: |
+    - exchange rate
+    - what is the difference between (USD)[input_currency] and (INR)[output_currency]
+    - exchange rate between (USD)[input_currency] and (CAD)[output_currency]
+    - do you know the exchange rate
+    - what is the exchange rate
+    - tell me the exchange rate
+    - give me the exchange rate between (INR)[input_currency] and (JPY)[output_currency]
+    - tell me the exchange rate between (JPY)[input_currency] and (CHF)[output_currency]
+    - How much is 1 (JPY)[input_currency] in India
+    - Can you tell me the exchange rate
+    - i  want to know the exchange rate
+- regex: amount
+  examples: |
+    - \d{1,7}
 - regex: authotp
   examples: |
-    - \d{4}
-
+    - \d{6}
 - regex: phoneno
   examples: |
     - \d{10}
-  
+- regex: pin
+  examples: |
+    - \d{4}
+- regex: receiver
+  examples: |
+    - \d{12}
+- regex: send_transfer_otp
+  examples: |
+    - \d{5}
+- regex: transfer_otp
+  examples: |
+    - \d{5}

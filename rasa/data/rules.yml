@@ -12,18 +12,23 @@ rules:
   - intent: bot_challenge
   - action: utter_iamabot
 
+# to activate the transfer money form
 - rule: Activate transfer form
   steps:
-  - intent: transfer_funds
+  - intent: transfer_money
   - action: transfer_form
   - active_loop: transfer_form
 
+# rule to deactivate/submit form
 - rule: Submit transfer form
   condition:
+  # Condition that form is active.
   - active_loop: transfer_form
   steps:
+  # Form is deactivated
   - action: transfer_form
   - active_loop: null
   - slot_was_set:
     - requested_slot: null
-  - action: action_transfer_funds
+  # The actions we want to run when the form is submitted.
+  - action: action_transfer_money
