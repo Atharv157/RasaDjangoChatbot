@@ -40,6 +40,15 @@ class CardAdmin(admin.ModelAdmin):
     fieldsets = ()
 admin.site.register(Card, CardAdmin)
 
-admin.site.register(Order)
-admin.site.register(Transaction)
+
+class TransactionAdmin(admin.ModelAdmin):
+    list_display = ('transaction_id','amount','transaction_date','sender_acc','receiver_acc')
+    search_fields = ('transaction_id','amount','transaction_date','sender_acc','receiver_acc')
+    filter_horizontal = ()
+    list_filter = ()
+    fieldsets = ()
+admin.site.register(Transaction, TransactionAdmin)
+
+
 admin.site.register(Complaint)
+admin.site.register(Order)

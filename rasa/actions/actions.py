@@ -15,9 +15,8 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from .query import *
 import random
-from .otp import send_otp
+from .otp import send_otp,send_transaction_alert
 from rasa_sdk.forms import FormValidationAction
-from .mysqlconn import connect
 from forex_python.converter import CurrencyRates
 
 #
@@ -268,11 +267,11 @@ class ActionTransferMoney(Action):
             #firstly validating receiver
             if(not check_account_number_exists(verified_email,receiver)):
                 dispatcher.utter_message("Failed to process the transaction. Invalid beneficiary account number. Please reintialize the process.")
-                [SlotSet('amount',None), SlotSet('receiver',None),SlotSet('transfer_otp',None),SlotSet('send_transfer_otp',None)]
+                return[SlotSet('amount',None), SlotSet('receiver',None),SlotSet('transfer_otp',None),SlotSet('send_transfer_otp',None)]
             # validating the amount
             if(not check_balance_before_transfer(verified_email, amount)):
                 dispatcher.utter_message("Transfer amount exceeds the available account balance. Please reintialize the process.")
-                [SlotSet('amount',None), SlotSet('receiver',None),SlotSet('transfer_otp',None),SlotSet('send_transfer_otp',None)]
+                return[SlotSet('amount',None), SlotSet('receiver',None),SlotSet('transfer_otp',None),SlotSet('send_transfer_otp',None)]
             elif amount is not None and receiver is not None and transfer_otp is None:
                 tempotp = random.randint(10000, 99999)
                 if send_otp(tempotp,verified_email):    
@@ -280,13 +279,16 @@ class ActionTransferMoney(Action):
                     return [SlotSet("send_transfer_otp",tempotp)]
                 else:
                     dispatcher.utter_message("Internal error, please try again later")
-                    [SlotSet('amount',None), SlotSet('receiver',None),SlotSet('transfer_otp',None),SlotSet('send_transfer_otp',None)]
+                    return [SlotSet('amount',None), SlotSet('receiver',None),SlotSet('transfer_otp',None),SlotSet('send_transfer_otp',None)]
         elif amount is not None and receiver is not None and transfer_otp is not None and send_transfer_otp is not None:
             if str(send_transfer_otp)==str(transfer_otp):
-                if transfer(amount,receiver,verified_email=email):
-                    dispatcher.utter_message("Transaction Completed")
+                transaction_id = transfer(amount,receiver,verified_email=email)
+                if transaction_id:
+                    message = "Transaction Completed. Transaction reference ID is {}. Please take a note of it. Thank You".format(transaction_id)
+                    dispatcher.utter_message(message)
+                    send_transaction_alert(transaction_id,amount) 
                     if verified_email is None:
-                        return [SlotSet('amount',None), SlotSet('receiver',None),SlotSet('transfer_otp',None),SlotSet('send_transfer_otp',None),SlotSet('verified_email',email),SlotSet("email",None)]
+                        return [SlotSet('amount',None), SlotSet('receiver',None),SlotSet('transfer_otp',None),SlotSet('send_transfer_otp',None),SlotSet('verified_email',email)]
                     else:
                         return [SlotSet('amount',None), SlotSet('receiver',None),SlotSet('transfer_otp',None),SlotSet('send_transfer_otp',None)]
                 else:

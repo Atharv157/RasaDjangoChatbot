@@ -3,8 +3,18 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser,BaseUserManager
 from django.db.models.fields import CharField
 import uuid
+from django.utils import timezone
+from datetime import datetime
+
+from sqlalchemy import null
+
 # Create your models here.
 #################################################################################################################################
+def give_card():
+    return str(int(uuid.uuid4()))[0:16]
+def acc_no():
+    return str(int(uuid.uuid4()))[0:12]
+############################################## 
 class AccountManager(BaseUserManager):
     
     def create_user(self,email,first_name,last_name,pan,gender,dob,phoneno,password=None):
@@ -109,7 +119,7 @@ class Branch(models.Model):
 
 class Account(models.Model):
     acc_id = models.AutoField(primary_key=True)
-    acc_no = models.CharField(default = str(int(uuid.uuid4()))[0:12], max_length=12)
+    acc_no = models.CharField(default = acc_no, max_length=12)
     balance = models.IntegerField()
     acc_type = models.CharField(max_length=50)
     open_date = models.DateField(auto_now=False, auto_now_add=False)
@@ -129,7 +139,7 @@ class Complaint(models.Model):
 ##################################################################################################################################
 
 class Card(models.Model):
-    card_no = models.CharField(default = str(int(uuid.uuid4()))[0:16], max_length=16, primary_key=True)
+    card_no = models.CharField(default = give_card, max_length=16, primary_key=True)
     acc_no = models.ForeignKey("accounts.Account", verbose_name="fkacc", on_delete=models.CASCADE)
     card_type = models.CharField(max_length=50)
     credit_limit = models.IntegerField()
@@ -150,13 +160,12 @@ class Order(models.Model):
 ###############################################################################################################################
 
 class Transaction(models.Model):
-    transaction_id = models.AutoField(primary_key=True)
-    transaction_type = models.CharField(max_length=50)
+    transaction_id = models.CharField(primary_key=True,default=str(int(uuid.uuid4()))[0:14],max_length = 14)
     amount = models.IntegerField()
-    transaction_date = models.DateField(auto_now=False, auto_now_add=False)
+    transaction_date = models.DateTimeField(default = datetime.now,null=True)
     sender_acc = models.ForeignKey("accounts.Account", related_name = "senderacc",on_delete=models.CASCADE)
     receiver_acc = models.ForeignKey("accounts.Account", related_name = "receiveracc",on_delete=models.CASCADE)
-    branch_id = models.ForeignKey("accounts.Branch", verbose_name="fkbranch", on_delete=models.CASCADE)
+    
 
 
 ########################################################################################################################
