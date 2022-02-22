@@ -187,19 +187,6 @@ class PhonenoChange(Action):
 
         return []
 
-class UnsetPhoneno(Action):
-
-    def name(self) -> Text:
-        return "action_unset_phoneno"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        dispatcher.utter_message(response="utter_ask_question")
-
-        return [SlotSet('phoneno',None)]
-
 
 
 class BlockCard(Action):
@@ -235,6 +222,7 @@ class FreezeAccount(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         verified_email = tracker.get_slot("verified_email")
+        
         if verified_email is None:
             dispatcher.utter_message("For security reasons, I have to authenticate you, Can I please get your email address. Thank you")
         else:
@@ -351,4 +339,54 @@ class ExchangeRate(Action):
         else:
             dispatcher.utter_message("Error occured while checking exchange rates. Please try again later.")
 
+        return []
+
+
+class MiniStatement(Action):
+
+    def name(self) -> Text:
+        return "action_mini_statement"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        verified_email = tracker.get_slot("verified_email")
+        if verified_email is None:
+            dispatcher.utter_message("For security reasons, I have to authenticate you, Can I please get your email address. Thank you")
+        else:
+            statement = get_mini_statement(verified_email)
+            if statement is None:
+                dispatcher.utter_message(text="Failed to load mini-account statement.")
+            else:
+                row_template = '''
+                    <tr class="trBorder">
+                            <!-- content inside <td> -->
+                            <td>{}</td>
+                            <td>{}</td>
+                            <td>{}</td>
+                    </tr>
+                '''
+                rows  = ""
+                for item in statement:
+                    newrow = row_template.format(str(item[0])[0:10],item[1],item[2])
+                    rows = rows + newrow
+                htmlstring = '''
+                <html>
+                <body>
+                    <table>
+                        <tr class="trBorder">
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        </tr>
+                        {}
+                    </table>
+                </body>
+                </html>'''
+                print(rows)
+                htmlstring = htmlstring.format(rows)
+                htmlstring = htmlstring.replace("\n", "")
+                htmlstring = htmlstring.replace(" ","")
+                
+                dispatcher.utter_message("Your mini account statement"+htmlstring)
         return []

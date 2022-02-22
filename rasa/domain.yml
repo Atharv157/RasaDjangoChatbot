@@ -24,6 +24,7 @@ intents:
 - block_card
 - freeze_account
 - stop_transfer
+- mini_statement
 entities:
 - amount
 - authotp
@@ -159,6 +160,7 @@ actions:
 - utter_ask_convert_to_currency
 - utter_ask_currency
 - validate_transfer_form
+- action_mini_statement
 forms:
   transfer_form:
     required_slots:

@@ -27,10 +27,10 @@ def get_balance(email):
     return "Cannot access that data right now!!"
 
 
-def change_pin(email,pin):
+def change_pin(verified_email,pin):
     mydb = connect()
     mycursor = mydb.cursor()
-    query = "update accounts_card set pin = {} where acc_no_id = (select acc_id from accounts_account where customer_id_id =(select customer_id from accounts_customer where email = '{}'));".format(str(pin),email)
+    query = "update accounts_card set pin = {} where acc_no_id = (select acc_id from accounts_account where customer_id_id =(select customer_id from accounts_customer where email = '{}'));".format(str(pin),verified_email)
     mycursor.execute(query)
     mydb.commit()
     row_affected = mycursor.rowcount
@@ -38,18 +38,6 @@ def change_pin(email,pin):
     if row_affected:
         return True
     return False
-
-# def change_email(verified_email,email):
-#     mydb = connect()
-#     mycursor = mydb.cursor()
-#     query = "update accounts_customer set email = '{}' where email = '{}';".format(email,verified_email)
-#     mycursor.execute(query)
-#     mydb.commit()
-#     row_affected = mycursor.rowcount
-#     mydb.close()
-#     if row_affected:
-#         return True
-#     return False
 
 def change_phoneno(verified_email,phoneno):
     mydb = connect()
@@ -63,7 +51,6 @@ def change_phoneno(verified_email,phoneno):
         return True
     return False
 
-#print(change_phoneno('nitishshekhare@gmail.com','1234567890')) 
 
 def block_card(verified_email):
     mydb = connect()
@@ -96,7 +83,6 @@ def freeze_account(verified_email):
     return None
 
 def check_account_number_exists(verified_email,receiver):
-    # verified_email="akshayshinde7289@gmail.com"
     mydb = connect()
     mycursor = mydb.cursor()
     query = "select acc_id from accounts_account where acc_no = '{}';".format(receiver)
@@ -105,12 +91,10 @@ def check_account_number_exists(verified_email,receiver):
     if not len(result):
         return False
     receiver_acc_id = result
-    # print("receiver is {}".format(receiver_acc_id))
     query = "select acc_id from accounts_account where customer_id_id =(select customer_id from accounts_customer where email = '{}');".format(verified_email)
     mycursor.execute(query)
     result = mycursor.fetchall()
     sender_acc_id = result
-    # print("sender is {}".format(sender_acc_id))
     mydb.close()
     if receiver_acc_id == sender_acc_id:
         return False
@@ -118,7 +102,6 @@ def check_account_number_exists(verified_email,receiver):
 
 
 def check_balance_before_transfer(verified_email, amount_to_be_transfer):
-    # verified_email = "akshayshinde7289@gmail.com"
     mydb = connect()
     mycursor = mydb.cursor()
     query = "select balance from accounts_account where customer_id_id=(select customer_id from accounts_customer where email = '{}');".format(verified_email)
@@ -176,6 +159,7 @@ def get_email(transaction_id):
     mycursor.execute(query)
     result = mycursor.fetchall()
     receiver_email = result[0][0]
+    mydb.close()
     return [sender_email,receiver_email]
 
 
@@ -186,6 +170,7 @@ def get_accno(verified_email):
     query = "select acc_no from accounts_account where customer_id_id =(select customer_id from accounts_customer where email = '{}');".format(verified_email)
     mycursor.execute(query)
     result = mycursor.fetchall()
+    mydb.close()
     return result[0][0]
 
 
@@ -195,4 +180,36 @@ def get_date(transaction_id):
     query = "select transaction_date from accounts_transaction where transaction_id = '{}';".format(transaction_id)
     mycursor.execute(query)
     result = mycursor.fetchall()
+    mydb.close()
     return result[0][0]
+
+
+def get_mini_statement(verified_email):
+    mydb = connect()
+    mycursor = mydb.cursor()
+    acc_no = get_accno(verified_email)
+    query = "select acc_id from accounts_account where acc_no = '{}';".format(acc_no)
+    mycursor.execute(query)
+    result = mycursor.fetchall()
+    acc_id = result[0][0]
+# if true then debit
+    query = "SELECT transaction_date, amount, sender_acc_id = {} as status from accounts_transaction where sender_acc_id = {} or receiver_acc_id = {} order by transaction_date desc limit 5;".format(acc_id,acc_id,acc_id)
+    mycursor.execute(query)
+    result = mycursor.fetchall()
+
+    answer = []
+    for item in result:
+        answer.append(list(item))
+        
+
+    for item in answer:
+        if item[-1] == True:
+            item[-1] = "DEBITED"
+        else:
+            item[-1] = "CREDITED"
+    mydb.close()
+    if result is None:
+        return None
+    else:
+        return answer
+

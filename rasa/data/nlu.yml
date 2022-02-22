@@ -346,6 +346,21 @@ nlu:
     - How much is 1 (JPY)[input_currency] in India
     - Can you tell me the exchange rate
     - i  want to know the exchange rate
+
+- intent: mini_statement
+  examples: |
+    - mini statement
+    - give me my mini statement
+    - show me my mini statement
+    - can i get my mini statement
+    - transactions
+    - give me my transactions
+    - can i get my transactions
+    - show me my transactions
+    - transactions list
+
+
+
 - regex: amount
   examples: |
     - \d{1,7}
