@@ -3,6 +3,7 @@ session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
+- branch_locator
 - inform_currency
 - amount_provided
 - pin_change
@@ -30,12 +31,16 @@ entities:
 - authotp
 - email
 - input_currency
+- location
 - output_currency
 - phoneno
 - pin
 - receiver
 - transfer_otp
 slots:
+  location:
+    type: text
+    influence_conversation: true
   email:
     type: text
     influence_conversation: true
@@ -118,7 +123,7 @@ responses:
     - title: USD ($ USA)
       payload: /inform_currency{{"input_currency":"USD"}}
     - title: GBP (£ Great Britain)
-      payload: /inform_currency{{"input_currency":"GBP"}} 
+      payload: /inform_currency{{"input_currency":"GBP"}}
     - title: JPY (¥ Japan)
       payload: /inform_currency{{"input_currency":"JPY"}}
     - title: CHF (Fr France)
@@ -144,14 +149,18 @@ responses:
       payload: /inform_currency{{"output_currency":"CAD"}}
     - title: EUR (€ Europe)
       payload: /inform_currency{{"output_currency":"EUR"}}
+  utter_ask_location:
+  - text: Please enter a city name
 actions:
 - action_account_balance
 - action_authinform
 - action_block_card
+- action_branch_locator
 - action_change_email
 - action_change_phoneno
 - action_exchange_rate
 - action_freeze_account
+- action_mini_statement
 - action_pin_change
 - action_transfer_money
 - action_unset_email
@@ -160,11 +169,14 @@ actions:
 - utter_ask_convert_to_currency
 - utter_ask_currency
 - validate_transfer_form
-- action_mini_statement
 forms:
   transfer_form:
     required_slots:
       receiver:
       - type: from_text
       amount:
+      - type: from_text
+  branch_form:
+    required_slots:
+      location:
       - type: from_text

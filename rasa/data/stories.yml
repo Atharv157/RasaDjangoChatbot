@@ -284,3 +284,30 @@ stories:
   steps:
   - intent: mini_statement
   - action: action_mini_statement
+
+# - story: branch locator
+#   steps:
+#   - intent: branch_locator
+#   - action: action_branch_locator
+
+
+# - story: branch locator 1
+#   steps:
+#   - intent: branch_locator
+#   - action: action_branch_locator
+#   - intent: branch_locator
+#     entities:
+#     - location: kalyan
+#   - slot_was_set:
+#     - location: kalyan
+#   - action: action_branch_locator
+
+- story: branch locator 1
+  steps:
+  - intent: branch_locator
+  - action: branch_form
+  - active_loop: branch_form
+  - slot_was_set:
+    - location: kalyan
+  - active_loop: null
+  - action: action_branch_locator

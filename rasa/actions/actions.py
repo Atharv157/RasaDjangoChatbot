@@ -390,3 +390,36 @@ class MiniStatement(Action):
                 
                 dispatcher.utter_message("Your mini account statement"+htmlstring)
         return []
+
+class BranchLocator(Action):
+
+    def name(self) -> Text:
+        return "action_branch_locator"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        city = tracker.get_slot("location")
+        if city is None:
+            dispatcher.utter_message("Please enter your city name")
+        else:
+            locations = get_branch_location(city.capitalize())
+            if locations is None:
+                dispatcher.utter_message("We don't have any branches in this city. Here's a list of our branch locations.")
+                all_locations = get_all_location()
+                locationset = set()
+                for item in all_locations:
+                    locationset.add(item[0])
+                listentry = ""
+                for item in locationset:
+                    listentry = listentry + "<li>{}</li>".format(item)
+                htmlstring = '''<ul>{}</ul>'''.format(listentry)
+                dispatcher.utter_message(htmlstring)
+                return [SlotSet('location',None)]
+            else:
+                dispatcher.utter_message("Address of branches in {}".format(city.capitalize()))
+                for item in locations:
+                    dispatcher.utter_message(item[-1])
+                return [SlotSet("location",None)]
+        return []

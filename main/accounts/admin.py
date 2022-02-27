@@ -14,7 +14,7 @@ class CustomerAdmin(UserAdmin):
 admin.site.register(Customer,CustomerAdmin)
 
 class BranchAdmin(admin.ModelAdmin):
-    list_display = ('ifsc','contact','location'
+    list_display = ('ifsc','contact','location','address'
     )
     search_fields = ('ifsc','location')
     filter_horizontal = ()

@@ -213,3 +213,22 @@ def get_mini_statement(verified_email):
     else:
         return answer
 
+def get_branch_location(city):
+    mydb = connect()
+    mycursor = mydb.cursor()
+    query = "SELECT * from accounts_branch where location = '{}';".format(city)
+    mycursor.execute(query)
+    result = mycursor.fetchall()
+    mydb.close()
+    if len(result):
+        return result
+    return None
+
+def get_all_location():
+    mydb = connect()
+    mycursor = mydb.cursor()
+    query = "SELECT location from accounts_branch;"
+    mycursor.execute(query)
+    result = mycursor.fetchall()
+    mydb.close()
+    return result

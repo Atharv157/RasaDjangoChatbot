@@ -346,7 +346,6 @@ nlu:
     - How much is 1 (JPY)[input_currency] in India
     - Can you tell me the exchange rate
     - i  want to know the exchange rate
-
 - intent: mini_statement
   examples: |
     - mini statement
@@ -358,9 +357,30 @@ nlu:
     - can i get my transactions
     - show me my transactions
     - transactions list
-
-
-
+- intent: branch_locator
+  examples: |
+    - branch
+    - branch locator
+    - branches in (kalyan)[location]
+    - UNAA branch near me
+    - is there any branch in (kalyan)[location]
+    - branch in (mulund)[location]
+    - Branches near me
+    - (Jogeshwari)[location]
+    - (Kalyan)[location]
+    - (Dahisar)[location]
+    - (Dombivli)[location]
+    - (Andheri)[location]
+    - (Goregaon)[location]
+    - (Mulund)[location]
+    - (Juhu)[location]
+    - (Borivali)[location]
+    - Can i get branches near me
+    - Give me the closest branch near me
+    - branch in (Juhu)[location]
+    - branch in (Dombivli)[location]
+    - give me all branches in (kalyan)[location]
+    - [kalyan](location)
 - regex: amount
   examples: |
     - \d{1,7}
