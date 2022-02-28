@@ -360,7 +360,6 @@ class MiniStatement(Action):
                     </table>
                 </body>
                 </html>'''
-                print(rows)
                 htmlstring = htmlstring.format(rows)
                 htmlstring = htmlstring.replace("\n", "")
                 htmlstring = htmlstring.replace(" ","")
@@ -421,5 +420,37 @@ class RegisterComplaint(Action):
                 dispatcher.utter_message("Your query/complaint has been recorded, our customer care will connect with you. Here's your complaint reference number {}. Thank You".format(result))
         return []
 
+class CreditUsed(Action):
 
+    def name(self) -> Text:
+        return "action_credit_used"
 
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        verified_email = tracker.get_slot("verified_email")
+        if verified_email is None:
+            dispatcher.utter_message("For security reasons, I have to authenticate you, Can I please get your email address. Thank you")
+        else:
+            card_type = get_card_type(verified_email)
+            if card_type.lower() == "debit":
+                dispatcher.utter_message("Dear Customer, You don't have a credit card to check the credit limit/credit used. If you like to get a credit card of your own please contact your branch. Thank you")
+            else:
+                result = get_credit_used(verified_email)
+                dispatcher.utter_message("credit limit - {}".format(result[0][0]))
+                dispatcher.utter_message("credit used - {}".format(result[0][1]))
+                
+        return []
+
+class InterestRates(Action):
+
+    def name(self) -> Text:
+        return "action_interest_rates"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        dispatcher.utter_message("Please click <a href='http://localhost:8000/interest_rates'>here</a> to get detailed information about our interest rates. Thank you")
+        
+        return []

@@ -58,7 +58,8 @@ def logout_user(request):
     auth.logout(request)
     return redirect('/login')
 
-
+def interest_rates(request):
+    return render(request,"interest_rates.html")
 
 
 

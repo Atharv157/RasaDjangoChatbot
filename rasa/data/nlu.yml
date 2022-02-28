@@ -389,6 +389,32 @@ nlu:
     - can you tell me the process for changing email addresss as my old email address is inactive
     - what is the procedure for applying for personal loans, can i get someone from bank
     - even after completing the procedure to block card transactions, card is not getting block, need someone from tech support
+- intent: credit_used
+  examples: |
+    - Can you tell me how much credit I have used on my card ?
+    - credit used
+    - how much credit is left on my credit card?
+    - how much credit is left for me to spend
+    - card credit limit
+    - do i have enough credit left to make more transaction
+    - what is my total credit limit 
+    - what is the status of credit used on my card
+    - update me on my credit used
+- intent: interest_rates
+  examples: |
+    - interest rate 
+    - give me interest rates
+    - can you give me fd interest rates
+    - give me saving account interest rates
+    - can you give me fixed deposit interest rates
+    - do you have any interest rates 
+    - can you provide me interest rates
+    - can you provide me fixed interest rates
+    - can you provide me saving account interest rates
+    - do you have any fixed deposit interest rates
+    - do you have any saving account interest rates
+    - do you have any saving account interest rates for senior citizens  
+    - do you have any fixed deposit interest rates for senior citizens
 - regex: amount
   examples: |
     - \d{1,7}

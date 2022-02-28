@@ -290,3 +290,13 @@ stories:
   - action: action_change_phoneno
   - slot_was_set:
     - phoneno: null
+
+- story: credit used
+  steps:
+  - intent: credit_used
+  - action: action_credit_used
+
+- story: interest_rates
+  steps:
+  - intent: interest_rates
+  - action: action_interest_rates

@@ -258,3 +258,28 @@ def reg_complaint(verified_email,complaint):
         return complaint_ref
     else:
         return None
+
+
+def get_credit_used(verified_email):
+    mydb = connect()
+    mycursor = mydb.cursor()
+    query = "select acc_id from accounts_account where customer_id_id =(select customer_id from accounts_customer where email = '{}');".format(verified_email)
+    mycursor.execute(query)
+    result = mycursor.fetchall()
+    acc_id = result[0][0]
+
+    query = "select credit_limit,credit_used from accounts_card where acc_no_id = {};".format(acc_id)
+    mycursor.execute(query)
+    result = mycursor.fetchall()
+    if result is None:
+        return None
+    else:
+        return result
+
+def get_card_type(verified_email):
+    mydb = connect()
+    mycursor = mydb.cursor()
+    query  = "select card_type from accounts_card where acc_no_id =(select acc_id from accounts_account where customer_id_id =(select customer_id from accounts_customer where email = '{}'));".format(verified_email)
+    mycursor.execute(query)
+    result = mycursor.fetchall()
+    return result[0][0]
