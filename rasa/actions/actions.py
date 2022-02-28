@@ -165,15 +165,15 @@ class PhonenoChange(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
-        verifed_email = tracker.get_slot("verified_email")
-        if verifed_email is not None:
+        verified_email = tracker.get_slot("verified_email")
+        if verified_email is not None:
             phoneno = tracker.get_slot('phoneno')
             if phoneno is not None:
                 if len(phoneno) != 10 or phoneno.isdigit() == False: 
                     dispatcher.utter_message("Invalid phone number (Phone number should be of 10-digits only)")
                     return [SlotSet('phoneno',None)] 
                     # phoneno is provided
-                if change_phoneno(verifed_email,phoneno):
+                if change_phoneno(verified_email,phoneno):
                     dispatcher.utter_message("Phone number updated")
                     return [SlotSet("phoneno",None)]
                 else:
@@ -211,29 +211,6 @@ class BlockCard(Action):
                 dispatcher.utter_message(answer)
 
         return []
-
-class FreezeAccount(Action):
-
-    def name(self) -> Text:
-        return "action_freeze_account"
-
-    def run(self, dispatcher: CollectingDispatcher,
-            tracker: Tracker,
-            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
-        verified_email = tracker.get_slot("verified_email")
-        
-        if verified_email is None:
-            dispatcher.utter_message("For security reasons, I have to authenticate you, Can I please get your email address. Thank you")
-        else:
-            acc_no = freeze_account(verified_email)
-            if acc_no is None: 
-                dispatcher.utter_message("Problem occured while freezing your account. Please try again later or contact branch.")
-            else:
-                answer = "Your account {} has been freezed. To reactivate contact branch".format(acc_no)
-                dispatcher.utter_message(answer)
-
-        return []    
 
 class ActionTransferMoney(Action):
     def name(self) -> Text:
@@ -423,3 +400,26 @@ class BranchLocator(Action):
                     dispatcher.utter_message(item[-1])
                 return [SlotSet("location",None)]
         return []
+
+class RegisterComplaint(Action):
+
+    def name(self) -> Text:
+        return "action_register_complaint"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        verified_email = tracker.get_slot("verified_email")
+        if verified_email is None:
+            dispatcher.utter_message("For security reasons, I have to authenticate you, Can I please get your email address. Thank you")
+        else:
+            complaint = tracker.latest_message["text"]
+            result = reg_complaint(verified_email,complaint)
+            if result is None:
+                dispatcher.utter_message("Problem occured while registering query/complaint. Please try again later.")
+            else:
+                dispatcher.utter_message("Your query/complaint has been recorded, our customer care will connect with you. Here's your complaint reference number {}. Thank You".format(result))
+        return []
+
+
+

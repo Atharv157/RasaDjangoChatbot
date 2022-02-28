@@ -3,6 +3,7 @@ import uuid
 from .mysqlconn import connect
 from datetime import datetime
 import pytz
+import uuid
  
 def check_mail(email):
     mydb = connect()
@@ -232,3 +233,28 @@ def get_all_location():
     result = mycursor.fetchall()
     mydb.close()
     return result
+
+def reg_complaint(verified_email,complaint):
+    mydb = connect()
+    mycursor = mydb.cursor()
+    query = "select customer_id from accounts_customer where email = '{}';".format(verified_email)
+    mycursor.execute(query)
+    result = mycursor.fetchall()
+    customer_id = result[0][0]
+
+    query = "select acc_id from accounts_account where customer_id_id =(select customer_id from accounts_customer where email = '{}');".format(verified_email)
+    mycursor.execute(query)
+    result = mycursor.fetchall()
+    acc_id = result[0][0]
+    timeZ_Kl = pytz.timezone('Asia/Kolkata') 
+    dt_Kl = datetime.now(timeZ_Kl)
+    complaint_date = str(dt_Kl)
+    complaint_ref = str(int(uuid.uuid4()))[0:8]
+    query = "insert into accounts_complaint (acc_no_id, complaint_date,complaint_txt,complaint_ref,customer_id_id) values ({},'{}','{}','{}',{});".format(acc_id,complaint_date,complaint,complaint_ref,customer_id)
+    mycursor.execute(query)
+    rowaffected = mycursor.rowcount
+    if rowaffected:
+        mydb.commit()
+        return complaint_ref
+    else:
+        return None

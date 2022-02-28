@@ -164,14 +164,10 @@ nlu:
     - [034043](authotp)
     - [nitishshekhare@gmail.com](email)
     - [369956](authotp)
-- intent: change_email
-  examples: |
-    - i want to change my email
-    - change email
-    - can i change my email
-    - change my email id
-    - update my email
-    - can i update my email
+    - [xyzbank599@gmail.com](email)
+    - [663854](authotp)
+    - [xyzbank599@gmail.com](email)
+    - [668055](authotp)
 - intent: change_phoneno
   examples: |
     - i want to change my phone number
@@ -183,6 +179,7 @@ nlu:
     - update my phone number to [9876543210](phoneno)
     - change my phone  number to [7856498756](phoneno)
     - change my contact number to [45698756623](phoneno)
+    - phoone change
 - intent: phoneno_provided
   examples: |
     - [4569875623](phoneno)
@@ -191,6 +188,7 @@ nlu:
     - [9876543544](phoneno)
     - [9876778510](phoneno)
     - [9874548410](phoneno)
+    - [7894561230](phoneno)
 - intent: block_card
   examples: |
     - block my card
@@ -260,19 +258,6 @@ nlu:
     - that sounds good
     - correct
     - yes
-- intent: freeze_account
-  examples: |
-    - may you stop a paymet on my account
-    - how we stop my account
-    - can you place a stop on my account
-    - can we stop my bank account
-    - i need you to freeze all activity on my account
-    - i need my savings account placed under a block as soon as possible
-    - i need a block placed right away on my joint checking account
-    - i want a block placed on my checking account right away
-    - can you please freeze my account
-    - freeze account
-    - block account
 - intent: transfer_money
   examples: |
     - send [1000](amount) to [123456789012](receiver)
@@ -380,7 +365,30 @@ nlu:
     - branch in (Juhu)[location]
     - branch in (Dombivli)[location]
     - give me all branches in (kalyan)[location]
-    - [kalyan](location)
+    - (kalyan)[location]
+- intent: register_complaint
+  examples: |
+    - i want to register a complaint
+    - can i register a complaint?
+    - do you accept any complaints?
+    - i have a complaint
+    - can you help me i have a complaint
+    - i have a query related to transfer
+    - can i connect with a customer care personnel
+    - customer care
+    - can you help me with a query ?
+    - please help me with a doubt ?
+    - register complaint
+- intent: complaint_provided
+  examples: |
+    - Transaction failed due to unknown reasons, can you help me with this ?
+    - amount was deducted from my account but the receiver didnt got it, what should i do now, can i get a refund
+    - i am not able change the pin, after changing the pin number the old pin persists
+    - i am having problems with updating the phone number, please guide me
+    - while sending money, after giving the otp which i have received, transaction gets cancelled wrond otp, please help
+    - can you tell me the process for changing email addresss as my old email address is inactive
+    - what is the procedure for applying for personal loans, can i get someone from bank
+    - even after completing the procedure to block card transactions, card is not getting block, need someone from tech support
 - regex: amount
   examples: |
     - \d{1,7}

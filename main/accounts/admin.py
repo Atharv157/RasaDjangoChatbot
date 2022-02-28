@@ -49,6 +49,14 @@ class TransactionAdmin(admin.ModelAdmin):
     fieldsets = ()
 admin.site.register(Transaction, TransactionAdmin)
 
+class ComplaintAdmin(admin.ModelAdmin):
+    list_display = ('complaint_txt','complaint_id','complaint_ref','complaint_date')
+    search_fields = ('complaint_txt','complaint_id','complaint_ref','complaint_date')
+    filter_horizontal = ()
+    list_filter = ()
+    fieldsets = ()
+admin.site.register(Complaint, ComplaintAdmin)
 
-admin.site.register(Complaint)
+
+
 admin.site.register(Order)

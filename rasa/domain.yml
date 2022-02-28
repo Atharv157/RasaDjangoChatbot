@@ -3,6 +3,10 @@ session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
+- change_phoneno
+- authinform
+- phoneno_provided
+- register_complaint
 - branch_locator
 - inform_currency
 - amount_provided
@@ -10,7 +14,6 @@ intents:
 - transfer_money
 - transfer_otp_provided
 - pin_provided
-- authinform
 - affirm
 - greet
 - goodbye
@@ -19,16 +22,14 @@ intents:
 - mood_unhappy
 - bot_challenge
 - account_balance
-- change_email
-- change_phoneno
-- phoneno_provided
 - block_card
-- freeze_account
 - stop_transfer
 - mini_statement
+- complaint_provided
 entities:
 - amount
 - authotp
+- complaint_text
 - email
 - input_currency
 - location
@@ -38,6 +39,9 @@ entities:
 - receiver
 - transfer_otp
 slots:
+  complaint_text:
+    type: text
+    influence_conversation: true
   location:
     type: text
     influence_conversation: true
@@ -151,21 +155,21 @@ responses:
       payload: /inform_currency{{"output_currency":"EUR"}}
   utter_ask_location:
   - text: Please enter a city name
+  utter_ask_complaint_text:
+  - text: Please provide description for your query/complaint in a single message.
 actions:
 - action_account_balance
 - action_authinform
 - action_block_card
 - action_branch_locator
-- action_change_email
 - action_change_phoneno
 - action_exchange_rate
-- action_freeze_account
 - action_mini_statement
 - action_pin_change
+- action_register_complaint
 - action_transfer_money
-- action_unset_email
-- action_unset_phoneno
 - action_unset_pin
+- utter_ask_complaint_text
 - utter_ask_convert_to_currency
 - utter_ask_currency
 - validate_transfer_form

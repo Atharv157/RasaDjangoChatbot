@@ -27,14 +27,7 @@ stories:
   - action: utter_cheer_up
   - action: utter_did_that_help
   - intent: deny
-  - action: utter_goodbye
-
-- story: respond to change_email
-  steps:
-  - intent: change_email
-  - action: action_unset_email
-  - action: action_change_email
-  
+  - action: utter_goodbye  
 
 - story: respond to change_phoneno,  phoneno provided
   steps:
@@ -52,12 +45,6 @@ stories:
       - phoneno: '9594364068'
   - action: action_change_phoneno
 
-# - story: confused about phoneno
-#   steps:
-#   - intent: phoneno_provided
-#   - slot_was_set:
-#       - phoneno: '9594364068'
-#   - action: action_unset_phoneno
 
 
 - story: respond to authinform
@@ -105,24 +92,6 @@ stories:
   - checkpoint: block_card_confirmation
   - intent: deny
   - action: utter_request_cancelled
-
-- story: freeze account
-  steps: 
-  - intent: freeze_account 
-  - action: utter_ask_confirmation
-  - checkpoint: freeze_account_confirmation
-
-- story: freeze account + confirm
-  steps:
-  - checkpoint: freeze_account_confirmation
-  - intent: affirm
-  - action: action_freeze_account 
-
-- story: freeze account + deny
-  steps:
-  - checkpoint: freeze_account_confirmation
-  - intent: deny
-  - action: utter_request_cancelled 
 
 - story: deactivate transfer money form before completion
   steps:
@@ -172,27 +141,6 @@ stories:
   - slot_was_set:
     - transfer_otp: '58438'
   - action: action_transfer_money
-
-# - story: exchange rate 1
-#   steps:
-#   - intent: inform_currency
-#   - action: utter_ask_currency
-#   - slot_was_set:
-#     - input_currency: "USD"
-#   - action: utter_ask_convert_to_currency
-#   - slot_was_set:
-#     - output_currency: "JPY"
-#   - action: action_exchange_rate
-
-# - story: exchange rate 2
-#   steps:
-#   - intent: inform_currency
-#   - slot_was_set:
-#     - input_currency: "INR"
-#   - action: utter_ask_convert_to_currency
-#   - slot_was_set:
-#     - output_currency: "JPY"
-#   - action: action_exchange_rate
 
 
 - story: interactive_story_1
@@ -285,24 +233,7 @@ stories:
   - intent: mini_statement
   - action: action_mini_statement
 
-# - story: branch locator
-#   steps:
-#   - intent: branch_locator
-#   - action: action_branch_locator
-
-
-# - story: branch locator 1
-#   steps:
-#   - intent: branch_locator
-#   - action: action_branch_locator
-#   - intent: branch_locator
-#     entities:
-#     - location: kalyan
-#   - slot_was_set:
-#     - location: kalyan
-#   - action: action_branch_locator
-
-- story: branch locator 1
+- story: branch locator
   steps:
   - intent: branch_locator
   - action: branch_form
@@ -311,3 +242,51 @@ stories:
     - location: kalyan
   - active_loop: null
   - action: action_branch_locator
+
+
+
+- story: register complaint
+  steps:
+  - intent: register_complaint
+  - action: utter_ask_complaint_text
+  - intent: complaint_provided
+  - action: action_register_complaint
+  
+
+- story: register complaint
+  steps:
+  - intent: complaint_provided
+  - action: action_register_complaint
+
+- story: phone change new
+  steps:
+  - intent: authinform
+    entities:
+    - email: xyzbank599@gmail.com
+  - slot_was_set:
+    - email: xyzbank599@gmail.com
+  - action: action_authinform
+  - slot_was_set:
+    - sendotp: '668055'
+  - intent: authinform
+    entities:
+    - authotp: '668055'
+  - slot_was_set:
+    - authotp: '668055'
+  - action: action_authinform
+  - slot_was_set:
+    - verified_email: xyzbank599@gmail.com
+  - slot_was_set:
+    - authotp: null
+  - slot_was_set:
+    - sendotp: null
+  - intent: change_phoneno
+  - action: action_change_phoneno
+  - intent: phoneno_provided
+    entities:
+    - phoneno: '7894561230'
+  - slot_was_set:
+    - phoneno: '7894561230'
+  - action: action_change_phoneno
+  - slot_was_set:
+    - phoneno: null

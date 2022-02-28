@@ -14,6 +14,8 @@ def give_card():
     return str(int(uuid.uuid4()))[0:16]
 def acc_no():
     return str(int(uuid.uuid4()))[0:12]
+def give_complaint_ref():
+    return str(int(uuid.uuid4()))[0:8]
 ############################################## 
 class AccountManager(BaseUserManager):
     
@@ -130,11 +132,12 @@ class Account(models.Model):
 ################################################################################################################################
 
 class Complaint(models.Model):
-    complaint_txt = models.CharField(max_length=200)
+    complaint_txt = models.CharField(max_length=300)
     complaint_id = models.AutoField(primary_key = True)
+    complaint_ref = models.CharField(default=give_complaint_ref,max_length=10)
     acc_no = models.ForeignKey("accounts.Account", verbose_name="fkacc", on_delete=models.CASCADE)
     customer_id = models.ForeignKey("accounts.Customer", verbose_name="fkcust", on_delete=models.CASCADE)
-    complaint_date = models.DateField(auto_now_add=True)
+    complaint_date = models.DateTimeField(default = datetime.now,null=True)
 
 ##################################################################################################################################
 
