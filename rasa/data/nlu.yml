@@ -426,6 +426,29 @@ nlu:
     - can i get a new check book
     - can you give me a cheque book
     - help me for placing order for cheque book
+- intent: new_card
+  examples: |
+    - new card 
+    - i want a debit card
+    - how to apply for a debit card
+    - atm card
+    - card
+    - debit card
+    - i need a debit card
+    - can you issue a debit card
+    - help me to apply for a debit card
+    - can you help me in applying a debit card
+    - give me instructions for applying a debit card
+    - please help me to issue a debit card
+    - i want a debit card
+    - how to apply for a debit card
+    - credit card
+    - i need a credit card
+    - can you issue a credit card
+    - help me to apply for a credit card
+    - can you help me in applying a credit card
+    - give me instructions for applying a credit card
+    - please help me to issue a credit card   
 - regex: amount
   examples: |
     - \d{1,7}

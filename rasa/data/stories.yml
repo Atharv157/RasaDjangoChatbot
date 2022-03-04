@@ -307,3 +307,8 @@ stories:
   - action: utter_order_cheque_book_confirmation
   - intent: affirm
   - action: action_order_cheque_book
+
+- story: new_card
+  steps:
+  - intent: new_card
+  - action: utter_new_card_enquiry

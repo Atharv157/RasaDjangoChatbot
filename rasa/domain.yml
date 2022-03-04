@@ -29,6 +29,7 @@ intents:
 - credit_used
 - interest_rates
 - order_cheque_book
+- new_card
 entities:
 - amount
 - authotp
@@ -162,6 +163,8 @@ responses:
   - text: Please provide description for your query/complaint in a single message.
   utter_order_cheque_book_confirmation:
   - text: Do you want to initiate a request for cheque book (charges may apply)?
+  utter_new_card_enquiry:
+  - text: Bank Customers can visit the branch to know more about the application process for a Debit/Credit Card or upgrade a Debit/Credit Card.
 actions:
 - action_account_balance
 - action_authinform
