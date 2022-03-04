@@ -300,3 +300,10 @@ stories:
   steps:
   - intent: interest_rates
   - action: action_interest_rates
+
+- story: order cheque book
+  steps:
+  - intent: order_cheque_book
+  - action: utter_order_cheque_book_confirmation
+  - intent: affirm
+  - action: action_order_cheque_book

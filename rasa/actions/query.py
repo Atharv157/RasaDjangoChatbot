@@ -1,3 +1,4 @@
+from distutils.sysconfig import customize_compiler
 from unittest import result
 import uuid
 from .mysqlconn import connect
@@ -283,3 +284,25 @@ def get_card_type(verified_email):
     mycursor.execute(query)
     result = mycursor.fetchall()
     return result[0][0]
+
+def order_cheque_book(verified_email):
+    mydb = connect()
+    mycursor = mydb.cursor()
+    order_ref = str(int(uuid.uuid4()))[0:8]
+    query = "select customer_id from accounts_customer where email = '{}';".format(verified_email)
+    mycursor.execute(query)
+    result = mycursor.fetchall()
+    customer_id = result[0][0]
+    timeZ_Kl = pytz.timezone('Asia/Kolkata') 
+    dt_Kl = datetime.now(timeZ_Kl)
+    order_date = str(dt_Kl)
+    query  = "insert into accounts_order (order_ref, customer_id_id, order_type, order_time, order_status) values ('{}', {}, 'cheque book', '{}', 'placed');".format(order_ref, customer_id, order_date)
+    mycursor.execute(query)
+    row_affected_order_cheque = mycursor.rowcount
+    transaction_id = transfer(50, '143795186801', verified_email)
+    if row_affected_order_cheque and transaction_id:
+        mydb.commit()
+        mydb.close()
+        return order_ref
+    else:
+        return False

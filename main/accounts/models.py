@@ -56,9 +56,7 @@ class AccountManager(BaseUserManager):
             first_name = first_name,
             last_name = last_name,
             password=password,
-            phoneno = phoneno
-        
-            
+            phoneno = phoneno    
         )
         
         user.is_admin = True
@@ -67,9 +65,6 @@ class AccountManager(BaseUserManager):
 
         user.save(using=self._db)
         return user
-
-
-
 
 class Customer(AbstractBaseUser):
     # djangos abstract base user fields
@@ -105,9 +100,6 @@ class Customer(AbstractBaseUser):
         return True
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ["pan","first_name","last_name","dob","gender","phoneno"]
-
-
-
 
 ########################################################################################################################
 
@@ -155,9 +147,10 @@ class Card(models.Model):
 
 class Order(models.Model):
     order_id = models.AutoField(primary_key=True)
+    order_ref = models.CharField(default=str(int(uuid.uuid4()))[0:8],max_length = 8)
     customer_id = models.ForeignKey("accounts.Customer", verbose_name="fkcust", on_delete=models.CASCADE)
     order_type = models.CharField(max_length=50)
-    order_time = models.DateField(auto_now=False, auto_now_add=False)
+    order_time = models.DateTimeField(default = datetime.now,null=True)
     order_status = models.CharField(max_length=50)
 
 ###############################################################################################################################
@@ -168,7 +161,5 @@ class Transaction(models.Model):
     transaction_date = models.DateTimeField(default = datetime.now,null=True)
     sender_acc = models.ForeignKey("accounts.Account", related_name = "senderacc",on_delete=models.CASCADE)
     receiver_acc = models.ForeignKey("accounts.Account", related_name = "receiveracc",on_delete=models.CASCADE)
-    
-
 
 ########################################################################################################################

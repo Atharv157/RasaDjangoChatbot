@@ -57,6 +57,10 @@ class ComplaintAdmin(admin.ModelAdmin):
     fieldsets = ()
 admin.site.register(Complaint, ComplaintAdmin)
 
-
-
-admin.site.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('order_ref','customer_id','order_type','order_time','order_status')
+    search_fields = ('order_ref','customer_id')
+    filter_horizontal = ()
+    list_filter = ()
+    fieldsets = ()
+admin.site.register(Order, OrderAdmin)

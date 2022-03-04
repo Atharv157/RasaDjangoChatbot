@@ -454,3 +454,23 @@ class InterestRates(Action):
         dispatcher.utter_message("Please click <a href='http://localhost:8000/interest_rates'>here</a> to get detailed information about our interest rates. Thank you")
         
         return []
+    
+class OrderChequeBook(Action):
+
+    def name(self) -> Text:
+        return "action_order_cheque_book"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        verified_email = tracker.get_slot("verified_email")
+        if verified_email is None:
+            dispatcher.utter_message("For security reasons, I have to authenticate you, Can I please get your email address. Thank you")
+        else:
+            result = order_cheque_book(verified_email)
+            if result:
+                dispatcher.utter_message("Your order has been placed. Order reference no is {}. Thank you.".format(result))
+            else: 
+                dispatcher.utter_message("Error occured while placing an order. Retry after some time.")
+        return []

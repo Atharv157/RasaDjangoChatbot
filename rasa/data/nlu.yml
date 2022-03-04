@@ -415,6 +415,17 @@ nlu:
     - do you have any saving account interest rates
     - do you have any saving account interest rates for senior citizens  
     - do you have any fixed deposit interest rates for senior citizens
+- intent: order_cheque_book
+  examples: |
+    - need new cheque book
+    - place an order for cheque book
+    - I want new cheque book
+    - my old cheque book is finished. Need new one
+    - i want new check book
+    - can i get a new cheque book
+    - can i get a new check book
+    - can you give me a cheque book
+    - help me for placing order for cheque book
 - regex: amount
   examples: |
     - \d{1,7}

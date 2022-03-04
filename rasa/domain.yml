@@ -28,6 +28,7 @@ intents:
 - complaint_provided
 - credit_used
 - interest_rates
+- order_cheque_book
 entities:
 - amount
 - authotp
@@ -159,6 +160,8 @@ responses:
   - text: Please enter a city name
   utter_ask_complaint_text:
   - text: Please provide description for your query/complaint in a single message.
+  utter_order_cheque_book_confirmation:
+  - text: Do you want to initiate a request for cheque book (charges may apply)?
 actions:
 - action_account_balance
 - action_authinform
@@ -177,6 +180,7 @@ actions:
 - validate_transfer_form
 - action_credit_used
 - action_interest_rates
+- action_order_cheque_book
 forms:
   transfer_form:
     required_slots:
