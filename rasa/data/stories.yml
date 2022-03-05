@@ -312,3 +312,43 @@ stories:
   steps:
   - intent: new_card
   - action: utter_new_card_enquiry
+
+- story: tell_joke
+  steps:
+  - intent: tell_joke
+  - action: utter_joke
+
+- story: tell name
+  steps:
+  - intent: what_is_your_name
+  - action: utter_name
+
+- story: are you a bot
+  steps:
+  - intent: are_you_a_bot
+  - action: utter_are_you_a_bot
+
+- story: whom do you work for
+  steps:
+  - intent: who_do_you_work_for
+  - action: utter_who_do_you_work_for
+
+- story: reply to thanks
+  steps:
+  - intent: thank_you
+  - action: utter_welcome
+
+- story: who made you reply
+  steps:
+  - intent: who_made_you
+  - action: utter_who_made_you
+
+- story: what_can_i_ask_you
+  steps:
+  - intent: what_can_i_ask_you
+  - action: action_what_can_i_ask_you
+
+- story: oos
+  steps:
+  - intent: oos
+  - action: utter_oos

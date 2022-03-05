@@ -448,7 +448,259 @@ nlu:
     - help me to apply for a credit card
     - can you help me in applying a credit card
     - give me instructions for applying a credit card
-    - please help me to issue a credit card   
+    - please help me to issue a credit card  
+  ###############################################################################################################################
+
+- intent: oos
+  examples: |
+    - a show on broadway
+    - who has the best record in the nfl
+    - how do i find the area of a circle
+    - how many onions do i have on hand
+    - what is the name of the 13th president
+    - show me recent activity in my backyard
+    - what were the top stories this week
+    - can i mix antifreeze with water
+    - are any earning reports due
+    - show me the channel guide
+    - where does the power steering fluid go
+    - when was the last time the president visited floridau
+    - how can i keep my windshield from fogging up in winter
+    - how do i compute the median of a set of numbers
+    - what is happening with brexit right nowu
+    - are there any new companies to look out for
+    - can you tell me how to compute price per ounce
+    - how to unclog a drain
+    - am kind of busy now
+    - what new reality shows are there for 2019
+    - how can i root an android phone
+    - is android better than iphone
+    - are androids expensive
+    - how long does it take to become an architect
+    - who are some famous living architects
+    - find out for me as to why people get autism
+    - is autism a genetic disease
+    - is flu contagious
+    - is it true that nicotine is harder to kick than heroin
+    - please inform me on bad habits and overcoming them
+    - are bad habits closely related with addictions
+    - does hypnosis work to break bad habits
+    - king of acid
+    - what university in the united states offers the best biomedical engineering program
+    - what's the definition of nuclear engineering
+    - when was electrical engineering created
+    - what is naval engineering
+    - is it possible to survive in a black hole
+    - where do black holes come from
+    - what are black holes
+    - what was the final vote count in the brexit referendum
+    - can you tell me the latest georgia news
+    - is the brexit finalized yet
+    - the birds fly with there wings
+    - how the birds fly
+    - where does cannabis originate from
+    - how are my cannabis stocks doing
+    - is marijuana addictive
+    - should i hit or stay at 17 in blackjack
+    - what game has the best odds at a casino
+    - what's the best opening gambit for a game of chess
+    - what side in chess has the general advantage
+    - how do i get better at go
+    - how high does my sat score need to be to get into harvard
+    - what'll an education at boulder state college run
+    - what's the average gpa to get into yale
+    - what act score is considered good
+    - what cryptocurrency gained the most in 2018
+    - what's the best crypto to buy in 2019
+    - how is crypto legal
+    - are there any cybersecurity jobs available in pittsburgh
+    - how many firewalls should i have and what type
+    - how can i breach a network
+    - how does cybersecurity work
+    - how many countries in the world are democracies
+    - is the united states a democracy
+    - which nations are not democratic
+    - how does a democracy work
+    - please get me my wheelchair
+    - what's the best dog food to feed my puppy
+    - how do you know when your dog is ill
+    - what dog breed sold the most in 2018
+    - how much food should i feed my cat
+    - what does it mean if i dream of falling off a building
+    - is it bad to not remember your dreams
+    - why do we dream
+    - do ducks eat meat, vegetables, or both
+    - what is the friendliest breed
+    - what do geese eat
+    - do ducks sleep
+    - are over the ear headphones better than in ear headphones
+    - what brand of earphones is the best reviewed of 2019
+    - are white and brown eggs any different
+    - where do eggs come from
+    - how can i easily replace a string on my guitar
+    - how do you learn how to play electric violin
+    - can you give me the standard tuning notes
+    - what is the cheapest electric guitar
+    - you want to know about current time now
+    - what does it mean to have equality
+    - what site publishes the most fake news
+    - can you tell me some fake news
+    - is cnn really fake news
+    - why is there fake news
+
+- intent: what_can_i_ask_you
+  examples: |
+    - what categories of questions can you answer
+    - what kind of questions can i ask the chatbot
+    - can you tell me what i can ask the chatbot
+    - what types of things can i ask the chatbot
+    - what kind of things can i ask the chatbot
+    - what can i ask the chatbot
+    - what questions can you answer
+    - what am i allowed to ask you
+    - what all can i ask you
+    - what are you capable of doing and answering
+    - what are you capable of answering
+    - what kinds of subjects do you know about
+    - what are the different subjects that you know
+    - which kinds of info are you familiar with
+    - what kind of information do you know
+    - which subjects can you tell me about
+    - can i ask you all different types of questions
+    - can you answer all types of questions
+    - what topics can you answer questions on
+    - what kind of questions can you answer
+
+- intent: who_made_you
+  examples: |
+    - who is your designer
+    - what company is responsible for your design
+    - who is responsible for your design
+    - what firm is responsible for your design
+    - who were you created by
+    - what is the company that made you
+    - who are you manufactured by
+    - who is your manufacturer
+    - who makes you
+    - what organization manufactures you
+    - who's your creator
+    - what manufactures you
+    - who is the person responsible for creating you
+    - who brought you into existence
+    - who formed thou
+    - who conjured you
+    - who programmed you
+    - where were you programmed
+
+- intent: thank_you
+  examples: |
+    - that you so much for the help
+    - thanks for helping me
+    - thanks for helping me out today
+    - thanks for the assist
+    - thank you for the help
+    - thanks for your help
+    - thank you for your help
+    - i'm thankful for your help
+    - i am glad that you did that
+    - i owe you one
+    - i appreciate you doing that
+    - appreciated
+    - i am happy you did that for me
+    - thanks, you've helped me
+    - thanks, i appreciate it
+    - i'm thankful
+    - you have my gratitude
+    - you've been a big help
+    - special thanks to you
+    - you have my sincere gratitude
+
+- intent: who_do_you_work_for
+  examples: |
+    - do you work for another person
+    - who is your supervisor, please
+    - who is your superior, please
+    - who are you employed by
+    - who is your superior
+    - do you work for a different person
+    - who are you employed by, please
+    - who you work for, please
+    - do you work for another individual
+    - who is your supervisor
+    - do you work for a different individual
+    - who you work for
+    - are you one of my employees
+    - do you work for a different employer
+    - who is your boss by the way
+    - i want the name of your boss
+    - specify who your boss is
+    - provide me the name of your boss
+    - tell me who your boss is
+    - who do you say you work for
+- intent: are_you_a_bot
+  examples: |
+    - are you secretly real
+    - i would like to know if you are a robot
+    - you could tell me if you were real
+    - i would like to know if you are an artificial intelligence being
+    - do you consider yourself an artificial intelligence being
+    - can you act and think like a real person
+    - could you be a real person
+    - clear something up, are you a robot
+    - are you a human being or a computer
+    - can you tell me if you are a real live person
+    - am i speaking with a real person
+    - are you an actual human
+    - would you be classified as a bot
+    - would it be accurate to call you a bot
+    - would you say you are a bot
+    - i am curious to know if you are a bot
+    - are you an actual live person
+    - please tell me if you are a bot
+    - are you a robot
+- intent: what_is_your_name
+  examples: |
+    - what may i call you
+    - what was your name again
+    - your name is
+    - whats your name by the way
+    - what's your name if i may ask
+    - what is your name by chance
+    - what is your names
+    - what exactly is your name
+    - what's the name i should use to talk to you
+    - what is your given name
+    - what's the name you like to be called
+    - what's the name you were given
+    - can i ask your name
+    - do you mind if i ask your name
+    - do you have a nickname
+    - what do you go by
+    - what do you call yourself
+    - i'd like to know your name
+    - your name please
+
+
+- intent: tell_joke
+  examples: |
+    - what's the funniest thing you've got
+    - let me hear something funny
+    - i want to hear anything you have that's funny
+    - i want to hear something hilarious
+    - tell me your funniest joke
+    - do you have any funny jokes
+    - give me your best joke
+    - tell my something funny
+    - tell me something to make me laugh
+    - i'm in the mood for a joke
+    - could you tell me a good joke
+    - do you have any funny jokes you can tell
+    - have you heard any great jokes lately
+    - do you know any good jokes you would like to share
+    - what sort of jokes do you know
+
+
+
 - regex: amount
   examples: |
     - \d{1,7}

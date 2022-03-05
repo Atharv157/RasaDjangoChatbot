@@ -474,3 +474,19 @@ class OrderChequeBook(Action):
             else: 
                 dispatcher.utter_message("Error occured while placing an order. Retry after some time.")
         return []
+
+
+
+class WhatCanIAskYou(Action):
+
+    def name(self) -> Text:
+        return "action_what_can_i_ask_you"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        htmlstring = '''<div>Here are some of the things which I can do for you.</div><ul style="list-style-type:disc"><li>- Checking Account Balance</li><li>- View latest transactions</li><li>- Transfer Money</li><li>- Locate Branches</li><li>- Change Card PIN</li><li>- Update Phone Number</li><li>- Order Chequebook</li><li>- Credit details</li><li>- Register a complaint</li></ul>'''
+        dispatcher.utter_message(htmlstring)
+
+        return []

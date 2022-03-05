@@ -30,6 +30,14 @@ intents:
 - interest_rates
 - order_cheque_book
 - new_card
+- oos
+- what_can_i_ask_you
+- who_made_you
+- thank_you
+- who_do_you_work_for
+- are_you_a_bot
+- tell_joke
+- what_is_your_name
 entities:
 - amount
 - authotp
@@ -165,6 +173,41 @@ responses:
   - text: Do you want to initiate a request for cheque book (charges may apply)?
   utter_new_card_enquiry:
   - text: Bank Customers can visit the branch to know more about the application process for a Debit/Credit Card or upgrade a Debit/Credit Card.
+  utter_joke:
+  - text: My wife told me to stop impersonating a flamingo. I had to put my foot down.
+  - text: I went to buy some camo pants but couldn't find any.
+  - text: I failed math so many times at school, I can't even count.
+  - text: I used to have a handle on life, but then it broke.
+  - text: I was wondering why the frisbee kept getting bigger and bigger, but then it hit me.
+  - text: I heard there were a bunch of break-ins over at the car park. That is wrong on so many levels.
+  - text: I want to die peacefully in my sleep, like my grandfather… Not screaming and yelling like the passengers in his car.
+  - text: When life gives you melons, you might be dyslexic.
+  - text: Don't you hate it when someone answers their own questions? I do.
+  - text: It takes a lot of balls to golf the way I do.
+  - text: I told him to be himself; that was pretty mean, I guess.
+  - text: I know they say that money talks, but all mine says is 'Goodbye.'
+  - text: My father has schizophrenia, but he's good people
+  - text: The problem with kleptomaniacs is that they always take things literally.
+  - text: I can't believe I got fired from the calendar factory. All I did was take a day off.
+  - text: Most people are shocked when they find out how bad I am as an electrician.
+  - text: Never trust atoms; they make up everything.
+  - text: My wife just found out I replaced our bed with a trampoline. She hit the ceiling!
+  - text: I was addicted to the hokey pokey, but then I turned myself around.
+  - text: I used to think I was indecisive. But now I'm not so sure.
+  utter_name:
+  - text: My name is UNAA BOT. How can I help you today?
+  utter_are_you_a_bot:
+  - text: I am your personal assistant on UNAA Bank's website to help you with your questions!
+  utter_who_do_you_work_for:
+  - text: I am your personal assistant on UNAA Bank's website to help you with your questions!
+  utter_welcome:
+  - text: You're welcome! Do come back if you have more questions.!
+  utter_who_made_you:
+  - text: I am so sorry! I cannot share personal information at work. I'm here to answer your queries related to UNAA Bank.
+  utter_oos:
+  - text: Sorry I can't understand what you are saying!!!
+  - text: HUH???
+  - text: If only I had all the world knowledge....
 actions:
 - action_account_balance
 - action_authinform
@@ -184,6 +227,7 @@ actions:
 - action_credit_used
 - action_interest_rates
 - action_order_cheque_book
+- action_what_can_i_ask_you
 forms:
   transfer_form:
     required_slots:
