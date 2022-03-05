@@ -12,7 +12,7 @@ from django.contrib import auth
 
 @login_required(login_url='/')
 def home(request):
-    return render(request,'home.html')
+    return render(request,'index.html')
 
 def login_attempt(request):
     if request.method == "POST":

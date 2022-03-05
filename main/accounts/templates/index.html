@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <head>
+      
+      <!--Let browser know website is optimized for mobile-->
+      <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+      <meta content="utf-8" http-equiv="encoding" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Import Google Icon Font-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway:500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--Import Font Awesome Icon Font-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0="
+      crossorigin="anonymous"
+    />
+
+    <!-- Import materialize.css -->
+    <!-- <link
+      rel="stylesheet"
+      type="text/css"
+      href="static/css/materialize.min.css"
+    /> -->
+          
+  <link
+    href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="static/css/style.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css" rel="stylesheet"/>
+  
+  <title>UNAA Bank</title>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav">
+      <img
+        src="https://www.logaster.com/blog/wp-content/uploads/2018/05/Canva.png"
+        alt="UBI logo"
+        class="nav__logo"
+        id="logo"
+      />
+      <ul class="nav__links">
+        <li class="nav__item">
+          <a class="nav__link" href="#section--1">About</a>
+        </li>
+        <li class="nav__item">
+          <a class="nav__link nav__link--btn btn--show-modal" href="#"
+            >Chatbot</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <div class="header__title">
+      <!-- <h1 onclick="alert('HTML alert')"> -->
+      <h1>
+        When
+        <!-- Green highlight effect -->
+        <span class="highlight">banking</span>
+        meets<br />
+        <span class="highlight">minimalist</span>
+      </h1>
+      <h4>A simpler banking experience for a simpler life.</h4>
+      <button class="btn--text btn--scroll-to">Learn more about the project <i class="fa-brands fa-github"></i></button>
+      <img
+        src="https://cdn2.techhq.com/wp-content/uploads/2020/07/shutterstock_1065837785-861x484.jpg"
+        class="header__img"
+        alt="Minimalist bank items"
+      />
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Modal for rendering the charts, declare this if you want to render charts, 
+       else you remove the modal -->
+    <div id="modal1" class="modal">
+      <canvas id="modal-chart"></canvas>
+    </div>
+
+    <!--chatbot widget -->
+    <div class="widget">
+      <div class="chat_header">
+        <!--Add the name of the bot here -->
+        <span class="chat_header_title">UNAA bot</span>
+      </div>
+
+      <!--Chatbot contents goes here -->
+      <div class="chats" id="chats">
+        <div class="clearfix"></div>
+      </div>
+
+      <!--keypad for user to type the message -->
+      <div class="keypad">
+        <textarea
+          id="userInput"
+          placeholder="Type a message..."
+          class="usrInput"
+        ></textarea>
+        <div id="sendButton">
+          <i class="fa fa-paper-plane" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+
+    <!--bot profile-->
+    <div class="profile_div" id="profile_div">
+      <img class="imgProfile" src="static/img/botAvatar.png" />
+    </div>
+  </div>
+
+</body>
+</html>
