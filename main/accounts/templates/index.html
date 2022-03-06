@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <head>
       
-      <!--Let browser know website is optimized for mobile-->
-      <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
-      <meta content="utf-8" http-equiv="encoding" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Let browser know website is optimized for mobile-->
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <meta content="utf-8" http-equiv="encoding" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!--Import Google Icon Font-->
     <link
@@ -35,7 +34,11 @@
       href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
       rel="stylesheet"
     />
-
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap"
+      rel="stylesheet"
+    />
+        
     <!--Import Font Awesome Icon Font-->
     <link
       rel="stylesheet"
@@ -45,60 +48,64 @@
     />
 
     <!-- Import materialize.css -->
-    <!-- <link
+    <link
       rel="stylesheet"
       type="text/css"
       href="static/css/materialize.min.css"
-    /> -->
-          
-  <link
-    href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="static/css/style.css" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css" rel="stylesheet"/>
-  
-  <title>UNAA Bank</title>
-</head>
+    />
+            
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="static/css/style.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/brands.min.css" rel="stylesheet"/>
+    
+    <title>UNAA Bank</title>
+  </head>
 <body>
-  <header class="header">
-    <nav class="nav">
-      <img
-        src="https://www.logaster.com/blog/wp-content/uploads/2018/05/Canva.png"
-        alt="UBI logo"
-        class="nav__logo"
-        id="logo"
-      />
-      <ul class="nav__links">
-        <li class="nav__item">
-          <a class="nav__link" href="#section--1">About</a>
-        </li>
-        <li class="nav__item">
-          <a class="nav__link nav__link--btn btn--show-modal" href="#"
-            >Chatbot</a
-          >
-        </li>
-      </ul>
-    </nav>
-
-    <div class="header__title">
-      <!-- <h1 onclick="alert('HTML alert')"> -->
-      <h1>
-        When
-        <!-- Green highlight effect -->
-        <span class="highlight">banking</span>
-        meets<br />
-        <span class="highlight">minimalist</span>
-      </h1>
-      <h4>A simpler banking experience for a simpler life.</h4>
-      <button class="btn--text btn--scroll-to">Learn more about the project <i class="fa-brands fa-github"></i></button>
-      <img
-        src="https://cdn2.techhq.com/wp-content/uploads/2020/07/shutterstock_1065837785-861x484.jpg"
-        class="header__img"
-        alt="Minimalist bank items"
-      />
+  <div class="navbar">
+    <li class="logo_container">
+      <img class="logo_img" src="../static/img/UNAA.png" />
+    </li>
+    <div class="sub_menu">
+      <li>About</li>
+      <li class="chatbot_btn">Chatbot</li>
     </div>
-  </header>
+  </div>
+
+  <div class="main-section">
+    <div class="section-1">
+      <h1>When <span class="highlight">banking</span> meets <span class="highlight extended">minimalist</span></h1>
+      <h5>A simpler banking experience for a simpler life.</h5>
+      <a href="#">Learn more about the project github</a>
+    </div>
+    <div class="section-2">
+      <img src="../static/img/banner_bank.jpg" />
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   <div class="container">
     <!-- Modal for rendering the charts, declare this if you want to render charts, 
@@ -112,6 +119,9 @@
       <div class="chat_header">
         <!--Add the name of the bot here -->
         <span class="chat_header_title">UNAA bot</span>
+        <span class="dropdown-trigger" href="#" data-target="dropdown1">
+          <i class="material-icons"> close </i>
+        </span>
       </div>
 
       <!--Chatbot contents goes here -->
@@ -138,5 +148,20 @@
     </div>
   </div>
 
+
+
+  <!--JavaScript at end of body for optimized loading-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script
+    type="text/javascript"
+    src="static/js/lib/materialize.min.js"
+  ></script>
+  <script src="static/js/lib/uuid.min.js"></script>
+  <!--Main Script -->
+  <script type="text/javascript" src="static/js/script.js"></script>
+
+  <!--Chart.js Script -->
+  <script type="text/javascript" src="static/js/lib/chart.min.js"></script>
+  <script type="text/javascript" src="static/js/lib/showdown.min.js"></script>
 </body>
 </html>
